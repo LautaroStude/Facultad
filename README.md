@@ -9,9 +9,7 @@
 
 ## 📖 Descripción General
 
-¡Bienvenido/a a mi repositorio académico personal! Aquí compilo y organizo todo el material de mi cursada en la **Licenciatura en Ciencias de Datos**. 
-
-Este espacio sirve como bitácora de aprendizaje y portafolio técnico. Contiene:
+Contiene:
 * 📝 **Apuntes teóricos** y resúmenes estructurados.
 * 🧮 **Resolución de guías prácticas** y ejercicios semanales.
 * 💻 **Laboratorios y código fuente** desarrollados durante las clases.
