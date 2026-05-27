@@ -1,4 +1,4 @@
-# 🎓 Mi Trayectoria en Ciencias de Datos — UBA / Facultad
+# Licenciatura en Ciencias de Datos — UBA 
 
 <div align="center">
   
