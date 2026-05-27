@@ -2,11 +2,6 @@
 
 <div align="center">
   
-  ![Licenciatura en Ciencias de Datos](https://img.shields.io/badge/Carrera-Licenciatura%20en%20Ciencias%20de%20Datos-blue?style=for-the-badge&logo=datadog&logoColor=white)
-  
-  ![Estado](https://img.shields.io/badge/Estado-En%20Progreso%20%281er%20y%202do%20a%C3%B1o%29-emerald?style=for-the-badge)
-  
-  ![Herramientas](https://img.shields.io/badge/Herramientas-Python%20%7C%20R%20%7C%20SQL%20%7C%20Git-orange?style=for-the-badge&logo=git&logoColor=white)
 
 </div>
 
