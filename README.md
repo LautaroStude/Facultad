@@ -44,8 +44,3 @@ Facultad/
 └── 📁 recursos_generales/       # Diapositivas, Guías, Libros y Papers
 ```
 
-
-
-<div align="center">
-  <sub>Diseñado con ❤️ para organizar mi trayecto académico. Licenciatura en Ciencias de Datos.</sub>
-</div>
