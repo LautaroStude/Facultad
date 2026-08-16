@@ -170,7 +170,7 @@ class Funciones {
     boolean todosPositivos(int[] xs) {
         boolean res = true;
         for (int i = 0; i < xs.length && res; i++) {
-            if (xs[i] <= 0) {
+            if (xs[i] <= 0) { //El caso de test esta mal planteado porque la especificacion dice mayor estricto a 0, pero el test con el 0 lo da como true
                 res = false;
             }
         }
