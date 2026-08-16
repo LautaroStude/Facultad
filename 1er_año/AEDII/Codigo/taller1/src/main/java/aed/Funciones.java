@@ -149,7 +149,7 @@ class Funciones {
 
     boolean ordenado(int[] xs) {
         boolean res = true;
-        for (int i = 0; i < xs.length; i++) {
+        for (int i = 0; i < xs.length - 1; i++) {
             if (xs[i] > xs [i+1]) {
                 res = false;
             }
