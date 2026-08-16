@@ -1,54 +1,49 @@
 package aed;
 
+import javax.swing.plaf.TreeUI;
+
 class Funciones {
 
 /***  Primera parte: Funciones en java ***/
 
     int cuadrado(int x) {
-        // COMPLETAR
         return x * x;
     }
 
     double distancia(double x, double y) {
-        // COMPLETA
-        double res = Math.sqrt(x * x + y * y);
-        return res;
+        return Math.sqrt((x * x)+(y * y));
     }
 
     boolean esPar(int n) {
-        // COMPLETAR
-        return n % 2 == 0;
+        return (n % 2) == 0;
     }
 
     boolean esBisiesto(int n) {
-        // COMPLETAR
-        
-        return (n % 4 == 0 && n % 100 != 0) || n % 400 == 0;
+        return ((((n % 4) == 0) && ((n % 100) != 0)) || ((n % 400) == 0));
     }
 
     int factorialIterativo(int n) {
-        // COMPLETAR
+
         int res = 1;
         for (int i = 1; i <= n; i++) {
             res = res * i;
         }
-    return res;
+        return res;
     }
 
     int factorialRecursivo(int n) {
-        // COMPLETAR
-                int res = 0;
-        if (n > 0) {
-            res = n * factorialIterativo(n - 1);
-        }
-        else {
+        int res;
+
+        if (n == 0) {
             res = 1;
+        } else {
+            res = n * factorialRecursivo(n - 1);
         }
         return res;
     }
 
     boolean esPrimo(int n) {
-        // COMPLETAR
+
         int divisores = 0;
         for (int i = 1; i <= n; i++) {
             if (n % i == 0) {
@@ -60,20 +55,16 @@ class Funciones {
     }
 
     int sumatoria(int[] numeros) {
-        // COMPLETAR
         int res = 0;
-        int longitud_lista = numeros.length;
-        for (int i = 0; i < longitud_lista; i++) {
+        for (int i = 0; i < numeros.length; i++) {
             res = res + numeros[i];
         }
         return res;
     }
 
     int busqueda(int[] numeros, int buscado) {
-        // COMPLETAR
-        int res = 0;
-        int longitud_lista = numeros.length;
-        for (int i = 0; i < longitud_lista; i++) {
+        int res = 0; //verificar porque si no lo encuentra como se que es el 0
+        for (int i = 0; i < numeros.length; i++) {
             if (numeros[i] == buscado) {
                 res = i;
             }
@@ -82,49 +73,73 @@ class Funciones {
     }
 
     boolean tienePrimo(int[] numeros) {
-        // COMPLETAR
         boolean res = false;
-        int longitud_lista = numeros.length;
-        for (int i = 0; i < longitud_lista; i++) {
-            if (esPrimo(numeros[i]) && !res) {
+        for (int i = 0; i < numeros.length; i++) {
+            if (esPrimo(numeros[i])) {
                 res = true;
+            }
+        }
+
+        return res;
+    }
+
+    boolean todosPares(int[] numeros) {
+        boolean res = true;
+        for (int i = 0; i < numeros.length; i++) {
+            if (numeros[i] % 2 != 0 && res) {
+                res = false;
             }
         }
         return res;
     }
 
-    boolean todosPares(int[] numeros) {
-        // COMPLETAR
-        boolean res = true;
-        int longitud_lista = numeros.length;
-        for (int i = 0; i < longitud_lista; i++) {
-            if (numeros[i] % 2 != 0 && res) {
-                res = false;
-            } 
+    boolean esPrefijo(String s1, String s2) {
+        boolean res = false;
+        String palabra = "";
+        
+       
+        for (int i = 0; i < s1.length() && s1.length() <= s2.length(); i++) {
+            char letra = s2.charAt(i); 
+            palabra = palabra + letra; 
+        }
+        
+        if (palabra.equals(s1)){
+            res = true;
         }
         return res;
     }
 
-    boolean esPrefijo(String s1, String s2) {
-        // COMPLETAR
-        return false;
-    }
-
     boolean esSufijo(String s1, String s2) {
-        // COMPLETAR
-        return false;
+        boolean res = false;
+        String palabra = "";
+        
+        for (int i = 0; i < s1.length() && s1.length() <= s2.length(); i++) {
+            
+            int posicion = s2.length() - s1.length() + i; 
+            
+            char letra = s2.charAt(posicion); 
+            palabra = palabra + letra; 
+        }
+        
+        if (palabra.equals(s1)){
+            res = true;
+        }
+        return res;
     }
 
 /***  Segunda parte: Debugging ***/
 
     boolean xor(boolean a, boolean b) {
-        return a || b && !(a && b);
+        return (a || b) && !(a && b);
     }
 
     boolean iguales(int[] xs, int[] ys) {
         boolean res = true;
+        if (xs.length != ys.length) {
+            res = false;
+        }
 
-        for (int i = 0; i < xs.length; i++) {
+        for (int i = 0; i < xs.length && res; i++) {
             if (xs[i] != ys[i]) {
                 res = false;
             }
@@ -143,19 +158,19 @@ class Funciones {
     }
 
     int maximo(int[] xs) {
-        int res = 0;
-        for (int i = 0; i <= xs.length; i++) {
-            if (xs[i] > res) res = i;
+        int res = xs[0];
+        for (int i = 0; i < xs.length; i++) {
+            if (xs[i] > res) {
+                res = xs[i];
+            }
         }
         return res;
     }
 
     boolean todosPositivos(int[] xs) {
-        boolean res = false;
-        for (int x : xs) {
-            if (x > 0) {
-                res = true;
-            } else {
+        boolean res = true;
+        for (int i = 0; i < xs.length && res; i++) {
+            if (xs[i] <= 0) {
                 res = false;
             }
         }
