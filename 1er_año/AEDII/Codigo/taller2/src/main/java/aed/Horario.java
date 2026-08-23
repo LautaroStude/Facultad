@@ -10,23 +10,26 @@ public class Horario {
     }
 
     public int hora() {
-        return hora;
+        
+        return this.hora;
     }
 
     public int minutos() {
-        return minutos;
+
+        return this.minutos;
     }
 
     @Override
     public String toString() {
-        return String.valueOf(hora) + ":" + String.valueOf(minutos);
+
+        return this.hora + ":" + this.minutos;
     }
 
     @Override
     public boolean equals(Object otro) {
-        if (otro == null || otro.getClass() != this.getClass()){
+        if (otro == null || otro.getClass() != this.getClass()) {
             return false;
-        } 
+        }
         Horario otroHorario = (Horario) otro;
         return (otroHorario.hora == this.hora && otroHorario.minutos == this.minutos);
     }

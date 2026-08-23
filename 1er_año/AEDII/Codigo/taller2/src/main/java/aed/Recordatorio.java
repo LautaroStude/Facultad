@@ -4,7 +4,7 @@ public class Recordatorio {
     private String mensaje;
     private Fecha fecha;
     private Horario horario;
-    
+
     public Recordatorio(String mensaje, Fecha fecha, Horario horario) {
         this.mensaje = mensaje;
         this.fecha = new Fecha(fecha.dia(), fecha.mes());
@@ -12,7 +12,7 @@ public class Recordatorio {
     }
 
     public Horario horario() {
-        return horario;
+        return this.horario;
     }
 
     public Fecha fecha() {
@@ -20,13 +20,12 @@ public class Recordatorio {
     }
 
     public String mensaje() {
-        return mensaje;
+        return this.mensaje;
     }
 
     @Override
     public String toString() {
-        // Implementar
-        return mensaje + " @ " + fecha.toString() + " " + horario.toString();
+        return mensaje + " @ " + fecha + " " + horario;
     }
 
     @Override
@@ -35,7 +34,7 @@ public class Recordatorio {
             return false;
         }
         Recordatorio otroRecordatorio = (Recordatorio) otro;
-        return (this.mensaje.equals(otroRecordatorio.mensaje) && this.fecha.equals(otroRecordatorio.fecha) && this.horario.equals(otroRecordatorio.horario));
+        return (otroRecordatorio.mensaje.equals(this.mensaje) && otroRecordatorio.horario.equals(this.horario) && otroRecordatorio.fecha.equals(this.fecha));
     }
 
 }

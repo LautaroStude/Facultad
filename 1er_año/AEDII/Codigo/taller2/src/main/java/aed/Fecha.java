@@ -7,6 +7,7 @@ public class Fecha {
     public Fecha(int dia, int mes) {
         this.dia = dia;
         this.mes = mes;
+
     }
 
     public Fecha(Fecha fecha) {
@@ -15,16 +16,18 @@ public class Fecha {
     }
 
     public Integer dia() {
-        // Implementar
-        return dia;
+        
+        return this.dia;
     }
 
     public Integer mes() {
-        return mes;
+        
+        return this.mes;
     }
 
     public String toString() {
-        return String.valueOf(dia) + "/" + String.valueOf(mes);
+
+        return this.dia + "/" + this.mes;
     }
 
     @Override
@@ -33,14 +36,13 @@ public class Fecha {
             return false;
         }
         Fecha otraFecha = (Fecha) otra;
-
         return (otraFecha.dia == this.dia && otraFecha.mes == this.mes);
     }
 
     public void incrementarDia() {
-        if (this.dia == diasEnMes(this.mes)){
+        if (this.dia == diasEnMes(this.mes)) {
             this.dia = 1;
-            if (this.mes == 12){
+            if (this.mes == 12) {
                 this.mes = 1;
             } else {
                 this.mes += 1;
@@ -48,7 +50,6 @@ public class Fecha {
         } else {
             this.dia += 1;
         }
-
     }
 
     private int diasEnMes(int mes) {
