@@ -1,4 +1,4 @@
-
+package aed;
 public class EstudianteDC {
 
     private String[] materiasPlan93 = new String[]{/*...*/};
