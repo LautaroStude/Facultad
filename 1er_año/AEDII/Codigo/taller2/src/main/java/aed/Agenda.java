@@ -14,17 +14,23 @@ public class Agenda {
 
     @Override
     public String toString() {
-        // Implementar
-        return "";
-    }
+            String resultado = this.fecha.toString() + "\n=====\n";
+            
+            for (int i = 0; i < this.recordatorios.longitud(); i++) {
+                Recordatorio r = this.recordatorios.obtener(i);
+                if (r.fecha().equals(this.fecha)) {
+                    resultado = resultado + r + "\n";
+                }
+            }
+            return resultado;
+        }
 
     public void incrementarDia() {
-        // Implementar
+        this.fecha.incrementarDia();
     }
 
     public Fecha fechaActual() {
-        // Implementar
-        return null;
+        return new Fecha(this.fecha);
     }
 
 }
