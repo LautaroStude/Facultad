@@ -1,0 +1,128 @@
+\documentclass[11pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage{graphicx}
+\usepackage[left=2.5cm,top=3cm,right=2.5cm,bottom=3cm,bindingoffset=0.5cm]{geometry}
+\usepackage{macros/AEDLogica, macros/AEDEspecificacion, macros/AEDTADs}
+\usepackage{caratula}
+\usepackage{amssymb} % Importo este paquete para usar el simbolo de los reales
+
+% SIMBOLOS USUADOS CON RECURRENCIA
+% ⟨⟩
+% {}
+
+% MACROS FALTANTES
+% Para renombres
+% Para parametros inout
+
+\titulo{Trabajo práctico}
+\subtitulo{AirMiles}
+
+\fecha{\today}
+
+\materia{Algoritmos y Estructuras de Datos}
+\grupo{Grupo5} 
+
+\integrante{Stude, Lautaro}{1096/25}{studelautaro@gmail.com}
+\integrante{Gonçalves, Jazmín}{964/24}{jazmingoncalves7@gmail.com}
+\integrante{Musante, Alejo}{1062/25}{musantealejo@gmail.com}
+\integrante{Marín, Sahara}{1340/23}{candiotti0317@gmail.com}
+% \integrante{Apellido, Nombre2}{002/01}{email2@dominio.com} %
+
+
+% Declaramos donde van a estar las figuras
+% No es obligatorio, pero suele ser comodo
+\graphicspath{{../static/}}
+
+% Asi pueden escribir nuevos comandos. 
+% Este por ejemplo asegura q los nombres 
+% que figuren con una tipografia diferenciada  
+\newcommand{\Tipo}[1]{\mathsf{#1}} 
+% la sintaxis es \newcommand{\nombreDeLaMacro}[cantidadDeParametros]{Lo que va ser remplazado por el macro} 
+\newcommand{\norm}[1]{\vert #1\vert}
+
+
+
+\begin{document}
+
+\maketitle
+
+\section{Renombres, predicados y funciones auxiliares}
+Promocion ES  tupla⟨String,$\mathbb{R}$⟩
+
+\pred{esBronce}{id : \Z, sistema : AirMiles}{sistemas.millasTotales[id] < 10.000}\\
+\pred{esPlata}{id : \Z, sistema : AirMiles}{10.000 <= sistemas.millasTotales[id] < 50.000}\\
+\pred{esOro}{id : \Z, sistema : AirMiles}{50.000 <= sistemas.millasTotales[id] < 1.000.000}\\
+\pred{esPlatino}{id : \Z, sistema : AirMiles}{1.000.000 <= sistemas.millasTotales[id]}\\
+\aux{factorMultiplicativo}{id : \Z, sistema : AirMiles}{\Z}\\{ifThenElse(esBronce(id,sistema),1,ifThenElse(esPlata(id,sistema),1.5,ifThenElse(esOro(id,sistema),2,0)))}
+
+
+\section{Macros para escribir en LaTeX}
+
+Para facilitar la escritura del trabajo práctico en LaTeX, les proveemos de varias macros que les permitirán escribir especificaciones en lógica de primer orden.
+Por ejemplo, podrán hacer uso de comandos que definen los conectores lógicos: $\land, \lor, \implica$ y también los operadores de la lógica trivaluada $\yLuego$, $\oLuego$, $\implicaLuego$.
+
+Además, disponen de comandos para cuantificadores: $\paraTodo{x}{\mathbb{Z}}{x \geq 0 \lor x < 0}$, $\existe{x}{\mathbb{Z}}{x \geq 0}$. A estos comandos se les puede agregar un \texttt{Largo} al final para que ocupen múltiples renglones.
+
+\section{Ejemplos de uso de las macros}
+
+
+\begin{tad}{EjemploDeTAD}
+
+
+\obs{secuenciaDeCaracteres}{\seq{\cha}}
+\\
+\obs{conjuntoDeTuplas}{\conj{\tupla{nombre: \seq{\cha}, apellido: \seq{\cha}}}}
+\\
+
+
+\begin{proc}{crearTAD}
+{
+\In caracteres: \seq{\cha},
+\In secuenciaDeNombres: \seq{\tupla{nombre: \seq{\cha}, apellido: \seq{\cha}}}
+}{
+\Tipo{EjemploDeTAD}
+}
+    \requiere{predicadoUnilinea(caracteres)}
+    \asegura{res.secuenciaDeCaracteres = caracteres}
+    \aseguraLargo{ \norm{res.conjuntoDeTuplas} = \norm{secuenciaDeNombres} \land \\predicadoMultilinea(secuenciaDeNombres, res.conjuntoDeTuplas) }
+\end{proc}
+
+\predLargo{predicadoMultilinea}{s: \seq{\cha}, conjunto: \conj{\tupla{\seq{\cha}, \seq{\cha}}}}{
+    \paraTodo{i}{\Z}{0 \leq i < \norm{s} 
+    \implicaLuego s[i] \in c}
+}
+
+\pred{predicadoUnilínea}{s: \seq{\cha}}{
+    \norm{s} > 0
+}
+
+\aux{unAuxiliar}{k: \Z,l: \Z}{\Z}{\norm{k-l}}
+
+\end{tad}
+
+\begin{tad}{AirMiles}
+
+\obs{usuarios}{\conj{\Z}}\\
+\obs{millasDisponibles}{dicc⟨\Z,\Z⟩}\\
+\obs{millasTotales}{dicc⟨\Z,\Z⟩}\\
+\obs{promociones}{\seq{Promocion}}\\
+\obs{transacciones}{}
+
+\begin{proc}{crearSistema}
+{}{\Tipo{AirMiles}}
+    \requiere{True}
+    \aseguraLargo{(\norm{Airmiles.promociones}=1)\land(AirMiles.promociones[0]_0="NoPromo"\land\\(AirMiles.promociones[0]_1 = 1 \land AirMiles.millasDisponibles = \{\} \land \\ AirMiles.millasTotales = \{\} \land AirMiles.usuarios = ⟨⟩}    
+\end{proc}\\
+\begin{proc}{registrarUsuario}{\In id : \Z, $inout\,$sistema}{\Tipo{AirMiles}}
+\requiere{sistema = sistema_0 \land id \notin AirMiles.usuarios}
+\aseguraLargo{sistema.usuarios = sistema_0.usuarios \,\cup \,\{id\}\, \land \,setKey(sistema.millasDisponibles,id,0)\, \land \,setKey(sistema.millasTotales,id,0)}
+    
+\end{proc}\,
+\begin{proc}{acumularMillas}{\in id : \Z,\in distancia : \mathbb{R}, promo : Promocion}{}
+    
+\end{proc}
+
+
+\end{tad}
+
+\end{document}
