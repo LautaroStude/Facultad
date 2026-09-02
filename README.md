@@ -8,21 +8,21 @@
 
 ```directory
 Facultad/
-├── 📁 1er_año/                  # Materias iniciales de la carrera
-│   ├── 📁 AEDI/                 # Algoritmos y Estructuras de Datos I
-│   │   ├── En_el_labo/          # Ejercicios prácticos de laboratorio
-│   │   └── Resoluciones_guias/  # Solución a guías de trabajos prácticos
-│   ├── 📁 AEDII/                # Algoritmos y Estructuras de Datos II
-│   │   ├── Codigo/              # Implementaciones en C++/Java/Python
-│   │   └── Laboratorios_diapos/ # Material de clase y diapositivas
-│   ├── 📁 AlgebraI/             # Álgebra I (Guías resueltas en PDF 1 a 7)
-│   └── 📁 AnalisisI/            # Análisis Matemático I
-├── 📁 2do_año/                  # Materias de segundo año (En preparación 🚀)
-├── 📁 notas/                    # Exámenes, notas y regularidad académica (PDFs)
-├── 📁 proyectos personales/     # Aplicaciones prácticas y desarrollo
-│   ├── 📁 Python/               # Programación Orientada a Objetos y más
-│   ├── 📁 R/                    # Análisis estadístico y visualización
-│   └── 📁 SQL/                  # Consultas, diseño de bases de datos
-└── 📁 recursos_generales/       # Diapositivas, Guías, Libros y Papers
+├── 📁 1er_año/                 
+│   ├── 📁 AEDI/                 
+│   │   ├── En_el_labo/          
+│   │   └── Resoluciones_guias/  
+│   ├── 📁 AEDII/                
+│   │   ├── Codigo/              
+│   │   └── Laboratorios_diapos/ 
+│   ├── 📁 AlgebraI/             
+│   └── 📁 AnalisisI/            
+├── 📁 2do_año/                  
+├── 📁 notas/                    
+├── 📁 proyectos personales/     
+│   ├── 📁 Python/               
+│   ├── 📁 R/                    
+│   └── 📁 SQL/                  
+└── 📁 recursos_generales/       
 ```
 
