@@ -1,0 +1,188 @@
+\documentclass[11pt, a4paper]{article}
+
+% --- PAQUETES IDIOMA Y FORMATO ---
+\usepackage[spanish, es-tabla]{babel} 
+\usepackage[margin=2.5cm]{geometry}   
+\usepackage{microtype}                
+
+% --- PAQUETES MATEMÁTICOS ESENCIALES ---
+\usepackage{amsmath}  
+\usepackage{amsfonts} 
+\usepackage{amssymb}  
+\usepackage{amsthm}   
+
+% --- CONTROL DE LISTAS ---
+\usepackage{enumitem} 
+
+% --- ATAJOS PARA CONJUNTOS ---
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{\mathbb{Z}}
+\newcommand{\N}{\mathbb{N}}
+\newcommand{\eps}{\varepsilon} 
+
+\begin{document}
+	
+	% --- CABECERA (Título, Nombre y Fecha) ---
+	\begin{center}
+		{\LARGE \textbf{Entrega: Taller de Cálculo Avanzado}} \\[0.3cm]
+		{\large \textbf{Nombre:} Lautaro Stude} \\[0.15cm]
+		{\large \textbf{Email:} lstude@dc.uba.ar} \\[0.15cm]
+		{\large \textbf{Fecha:} \today} \\[0.4cm]
+		\hrule height 0.5pt % Barra delgada de separación
+	\end{center}
+	
+	\vspace{0.6cm}
+	
+	% --- ENUNCIADO DEL EJERCICIO ---
+	\noindent\textbf{Ejercicio.} Sea $A$ un subconjunto no vacío de $\R$ acotado superiormente, y sea $s$ una cota superior de $A$. Demostrar que las siguientes afirmaciones son equivalentes:
+	
+	\begin{enumerate}[label=(\roman*), font=\normalfont, leftmargin=*, itemsep=0.5em]
+		\item Si $t \in \R$ es tal que para todo $a \in A$ se cumple que $a \leq t$, entonces $s \leq t$.
+		
+		\item Para todo $\eps > 0$ existe $a_\eps \in A$ tal que $a_\eps > s - \eps$.
+		
+		\item Existe una sucesión $(a_n)_{n \in \N}$ de elementos de $A$ tal que 
+		\[
+		\lim_{n \to \infty} a_n = s.
+		\]
+		
+		\item Existe una sucesión monótona creciente $(a_n)_{n \in \N}$ de elementos de $A$ tal que 
+		\[
+		\lim_{n \to \infty} a_n = s.
+		\]
+	\end{enumerate}
+	
+	\vspace{0.8cm}
+	\noindent\textbf{\Large Demostración:}
+	
+	\vspace{0.4cm}
+	Para probar que las afirmaciones son equivalentes, demostraremos la cadena de implicaciones $(i) \implies (ii) \implies (iii) \implies (iv) \implies (i)$.
+	
+	\vspace{0.4cm}
+	
+	% --- DEMOSTRACIÓN (i) => (ii) ---
+	\subsection*{Demostración de $(i) \implies (ii)$}
+	\begin{proof}
+		Supongamos por absurdo que existe $\epsilon > 0$ tal que $a \leq s - \epsilon$ para todo $a \in A$.
+		
+		Esto significa que $s - \epsilon$ es una cota superior del conjunto $A$. Por la definición de supremo, sabemos que $s$ es la menor de las cotas superiores. Entonces, si definimos como cota superior a $t = s - \epsilon$, debe cumplirse por (i) que $s \leq t$.
+		
+		Reemplazando $t$, obtenemos la siguiente inecuación:
+		\[
+		s \leq s - \epsilon
+		\]
+		
+		Sumando el inverso aditivo ($-s$) a ambos lados, la desigualdad se mantiene por el axioma de orden (O2):
+		\[
+		s + (-s) \leq (s - \epsilon) + (-s)
+		\]
+		
+		Aplicando los axiomas de conmutatividad y asociatividad de la suma (A1 y A2), y sabiendo que la suma de un elemento con su inverso aditivo es $0$, la expresión se reduce a:
+		\[
+		0 \leq -\epsilon
+		\]
+		
+		Sumando el opuesto de $-\epsilon$ a ambos lados, concluimos que:
+		\[
+		\epsilon \leq 0
+		\]
+		
+		Pero nuestra suposición inicial establecía que $\epsilon > 0$, lo cual genera una contradicción matemática evidente. 
+		
+		Por lo tanto, es absurdo suponer que ningún elemento de $A$ supera a $s - \epsilon$. Queda demostrado que para todo $\epsilon > 0$, existe al menos un $a \in A$ tal que $a > s - \epsilon$.
+	\end{proof}
+	
+	\vspace{0.5cm}
+	
+	% --- DEMOSTRACIÓN (ii) => (iii) ---
+	\subsection*{Demostración de $(ii) \implies (iii)$}
+	\begin{proof}
+		A partir de la afirmación (ii), construiremos una sucesión $(a_n)_{n \in \N}$ en $A$. Para cada $n \in \N$, definimos un valor positivo $\eps = \frac{1}{n}$. Por hipótesis, sabemos que para este $\eps$ existe un elemento $a_n \in A$ tal que:
+		\[
+		a_n > s - \frac{1}{n}
+		\]
+		Además, como $s$ es cota superior de $A$, sabemos que $a_n \leq s$.
+		
+		Queremos demostrar que esta sucesión converge a $s$, es decir, que para todo $\epsilon > 0$ arbitrario, se cumple:
+		\[
+		\exists n_0 \in \N \quad / \quad \forall n \geq n_0 \implies |a_n - s| < \epsilon
+		\]
+		Dado que $a_n \leq s$, la resta $a_n - s$ siempre es negativa o cero, por lo cual su módulo es $|a_n - s| = s - a_n$. Reordenando la inecuación inicial ($a_n > s - \frac{1}{n}$), obtenemos directamente que:
+		\[
+		|a_n - s| < \frac{1}{n}
+		\]
+		Ahora, sea $\epsilon > 0$ un valor arbitrario. Por la propiedad arquimediana, sabemos que:
+		\[
+		\exists n_0 \in \N \quad / \quad \frac{1}{n_0} < \epsilon
+		\]
+		Si tomamos cualquier $n \geq n_0$, se cumple que $\frac{1}{n} \leq \frac{1}{n_0}$. Entonces, por transitividad de las desigualdades, obtenemos:
+		\[
+		|a_n - s| < \frac{1}{n} \leq \frac{1}{n_0} < \epsilon
+		\]
+		Por lo tanto, podemos concluir que $|a_n - s| < \epsilon$, lo que demuestra por definición formal que $\lim_{n \to \infty} a_n = s$.
+	\end{proof}
+	
+	\vspace{0.5cm}
+	
+	% --- DEMOSTRACIÓN (iii) => (iv) ---
+	\subsection*{Demostración de $(iii) \implies (iv)$}
+	\begin{proof}
+		Sea $(a_n)_{n \in \N}$ la sucesión de elementos de $A$ tal que $\lim_{n \to \infty} a_n = s$, cuya existencia está garantizada por (iii). Construiremos una nueva sucesión $(b_n)_{n \in \N}$ definiendo:
+		\[
+		b_n = \max\{a_1, a_2, \dots, a_n\}
+		\]
+		Dado que $A$ es un conjunto, el máximo de una cantidad finita de elementos de $A$ sigue perteneciendo a $A$. Por lo tanto, $b_n \in A$ para todo $n \in \N$.
+		
+		Además, por la propia definición del máximo, es claro que $b_{n+1} = \max\{b_n, a_{n+1}\} \geq b_n$. Esto demuestra que la sucesión $(b_n)_{n \in \N}$ es monótona creciente.
+		
+		Ahora probaremos por definición de límite que $\lim_{n \to \infty} b_n = s$. 
+		Sea $\epsilon > 0$. Como $\lim_{n \to \infty} a_n = s$, existe $n_0 \in \N$ tal que para todo $n \geq n_0$, se cumple que $|a_n - s| < \epsilon$. 
+		Dado que $s$ es cota superior de $A$, sabemos que $a_n \leq s$, por lo que podemos escribir el valor absoluto desglosado como:
+		\[
+		s - \epsilon < a_n \leq s
+		\]
+		Por otra parte, como $b_n$ es el máximo hasta el término $n$, sabemos que $b_n \geq a_n$. Y como $b_n \in A$, también hereda la cota superior del conjunto, es decir, $b_n \leq s$. 
+		Combinando estas desigualdades, para cualquier $n \geq n_0$ se cumple:
+		\[
+		s - \epsilon < a_n \leq b_n \leq s
+		\]
+		Restando $s$ a todos los términos de la inecuación, obtenemos:
+		\[
+		-\epsilon < b_n - s \leq 0
+		\]
+		Lo cual implica directamente que $|b_n - s| < \epsilon$ para todo $n \geq n_0$. Queda así demostrado por definición que $\lim_{n \to \infty} b_n = s$.
+	\end{proof}
+	
+	\vspace{0.5cm}
+	
+	% --- DEMOSTRACIÓN (iv) => (i) ---
+	\subsection*{Demostración de $(iv) \implies (i)$}
+	\begin{proof}
+		Sea $t \in \R$ tal que $a \leq t$ para todo $a \in A$ (es decir, $t$ es una cota superior de $A$). Queremos demostrar que $s \leq t$.
+		
+		Procederemos por absurdo. Supongamos que $s > t$. En consecuencia, la resta $s - t > 0$. 
+		
+		Definimos $\epsilon = s - t$. Por la afirmación (iv), sabemos que existe una sucesión $(a_n)_{n \in \N}$ en $A$ (y monótona creciente) tal que $\lim_{n \to \infty} a_n = s$.
+		
+		Aplicando la definición formal de límite para el $\epsilon$ que elegimos, existe $n_0 \in \N$ tal que para todo $n \geq n_0$ se cumple:
+		\[
+		|a_n - s| < \epsilon
+		\]
+		Desarrollando la desigualdad del valor absoluto, esto significa que:
+		\[
+		s - \epsilon < a_n < s + \epsilon
+		\]
+		Reemplazando $\epsilon = s - t$ en la cota inferior de la desigualdad, tenemos:
+		\[
+		s - (s - t) < a_n \implies t < a_n
+		\]
+		Sin embargo, por hipótesis sabemos que $a_n \in A$ y que $t$ es una cota superior de $A$, lo que obliga a que $a_n \leq t$. 
+		Llegamos entonces a la siguiente cadena:
+		\[
+		t < a_n \leq t \implies t < t
+		\]
+		Esto es un absurdo. La contradicción provino de suponer que $s > t$. Por lo tanto, es forzoso concluir que $s \leq t$, lo que demuestra que $s$ es la menor de las cotas superiores.
+	\end{proof}
+	
+\end{document}
+

@@ -38,6 +38,7 @@ class ArregloRedimensionableDeRecordatorios {
             for (int i = 0; i < cantidad - 1; i++) {
                 newRecordatorio[i] = this.recordatorios[i];
             }
+            this.recordatorios = newRecordatorio;
         }
         cantidad--;
     }

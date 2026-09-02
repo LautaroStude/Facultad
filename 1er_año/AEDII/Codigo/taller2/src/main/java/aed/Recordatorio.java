@@ -29,12 +29,23 @@ public class Recordatorio {
     }
 
     @Override
-    public boolean equals(Object otro) {
-        if (otro == null || otro.getClass() != this.getClass()) {
-            return false;
-        }
-        Recordatorio otroRecordatorio = (Recordatorio) otro;
-        return (otroRecordatorio.mensaje.equals(this.mensaje) && otroRecordatorio.horario.equals(this.horario) && otroRecordatorio.fecha.equals(this.fecha));
-    }
+        public boolean equals(Object otro) {
+            if (otro == null || otro.getClass() != this.getClass()) {
+                return false;
+            }
+            Recordatorio otroRecordatorio = (Recordatorio) otro;
 
-}
+            boolean mensajesIguales = true;
+            if (this.mensaje.length() != otroRecordatorio.mensaje.length()) {
+                mensajesIguales = false;
+            } else {
+                for (int i = 0; i < this.mensaje.length() && mensajesIguales; i++) {
+                    if (this.mensaje.charAt(i) != otroRecordatorio.mensaje.charAt(i)) {
+                        mensajesIguales = false;
+                    }
+                }
+            }
+
+            return mensajesIguales && otroRecordatorio.horario.equals(this.horario) && otroRecordatorio.fecha.equals(this.fecha);
+        }
+    }
