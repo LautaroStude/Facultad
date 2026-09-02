@@ -5,22 +5,6 @@
 
 </div>
 
----
-
-## 📖 Descripción General
-
-Contiene:
-* 📝 **Apuntes teóricos** y resúmenes estructurados.
-* 🧮 **Resolución de guías prácticas** y ejercicios semanales.
-* 💻 **Laboratorios y código fuente** desarrollados durante las clases.
-* 📚 **Recursos generales**, bibliografía y papers recomendados.
-* 🚀 **Proyectos personales** donde aplico los conocimientos en problemas reales.
-
----
-
-## 📂 Estructura del Repositorio
-
-A continuación se detalla la organización de los directorios para facilitar la navegación:
 
 ```directory
 Facultad/
