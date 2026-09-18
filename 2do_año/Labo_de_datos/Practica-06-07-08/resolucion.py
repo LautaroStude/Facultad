@@ -384,7 +384,7 @@ query = """
 dataframeResultado = dd.sql(query).df()
 
 #%% H.a
-# Subconsulta correlacionada: se calcula el promedio por provincia (Total País / Cantidad de Provincias) para ese mismo año
+
 query = """
         SELECT provincia.descripcion AS provincia, casos.anio, SUM(casos.cantidad) AS total_provincia
         FROM casos
@@ -402,7 +402,7 @@ query = """
 dataframeResultado = dd.sql(query).df()
 
 #%% H.b
-# Subconsulta correlacionada: se busca el total de Corrientes conectando el año de la subconsulta con el año de la consulta principal
+
 query = """
         SELECT provincia.descripcion AS provincia, casos.anio, SUM(casos.cantidad) as total_casos
         FROM casos
