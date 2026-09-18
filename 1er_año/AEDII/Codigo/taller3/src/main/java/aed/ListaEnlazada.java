@@ -122,14 +122,16 @@ public class ListaEnlazada<T> {
         return resultado;
     }
 
-    public class ListaIterador implements Iterador<T>{
+    public class ListaIterador{
         private Nodo actual = primero;
 
         public boolean haySiguiente() {
+            //el dedito empezaria antes del primer nodo seria algo como "| (1er nodo) (2do nodo) ..." donde | es el dedo, entonces me queda que el siguiente es mi primer nodo
 	        return this.actual != null;
         }
         
         public boolean hayAnterior() {
+            //veo si es el ultimo elemento, tambien veo que no este vacia la lista
 	        if (this.actual == null) {
                 return ultimo != null;
             }
