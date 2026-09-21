@@ -8,3 +8,13 @@ censo2022 = pd.read_excel(f"{carpeta}/censo2022.xlsX")
 establecimientos = pd.read_excel(f"{carpeta}/establecimientos-asistenciales-asentados-registro-federal-refes-20220404.xlsX")
 nac2010 = pd.read_csv(f"{carpeta}/nacweb10.csv", encoding="cp1252")
 nac2022 = pd.read_csv(f"{carpeta}/nacweb22_0.csv", encoding="cp1252")
+
+consultaSQL = """
+               SELECT DISTINCT tipologia_id, tipologia_nombre
+               FROM establecimientos
+               ORDER BY tipologia_id;
+              """
+
+dataframeResultado = dd.sql(consultaSQL).df()
+
+print(dataframeResultado)
