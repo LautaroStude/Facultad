@@ -25,7 +25,7 @@ public class PilaSobreListaEnlazada implements Pila {
     public boolean isEmpty() {
         return primero == null;
     }
-
+    // no tiene limite la lista  
     public boolean isFull() {
         return false;
     }
