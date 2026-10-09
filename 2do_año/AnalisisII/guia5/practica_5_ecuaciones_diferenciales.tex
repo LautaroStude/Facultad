@@ -1,0 +1,251 @@
+% !TEX TS-program = pdflatex
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage[a4paper, margin=2cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{enumitem}
+\usepackage{calc}
+\usepackage{xcolor}
+
+% Definición del comando para crear las cajas de escritura
+\newcommand{\caja}[1]{%
+	\par\vspace{0.2cm}\noindent
+	\fbox{\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+			\vspace{0.1cm}\hspace{0.1cm}\textcolor{gray}{\small\textsl{Resolución:}}
+			\vspace{#1}
+	\end{minipage}}%
+	\par\vspace{0.3cm}
+}
+
+\begin{document}
+
+
+\begin{center}
+    \textsc{Universidad de Buenos Aires} \hfill \textsc{Facultad de Ciencias Exactas y Naturales} \\
+    \vspace{0.15cm}
+    \hrule
+    \vspace{0.4cm}
+    \textbf{\Large ANÁLISIS II -- ANÁLISIS MATEMÁTICO II -- MATEMÁTICA 3} \\
+    \vspace{0.2cm}
+    \textsl{Segundo Cuatrimestre 2026} \\
+    \vspace{0.4cm}
+    \textbf{\Large Práctica 5: Ecuaciones Diferenciales. Lautaro Stude}
+    \vspace{0.25cm}
+    \hrule
+\end{center}
+
+\vspace{0.5cm}
+
+\noindent \textbf{Ejercicio 1.} Para cada una de las ecuaciones diferenciales que siguen, encontrar la solución general y la solución particular que satisfaga la condición dada:
+
+\begin{enumerate}[label=\alph*)]
+    \item $x^{\prime}-2tx=t$, \quad $x(1)=0$
+    \caja{2.5cm}
+    
+    \item $x^{\prime}=\frac{1+x^{2}}{1+t^{2}}$, \quad $x(1)=0$
+    \caja{2.5cm}
+    
+    \item $x^{\prime}=\frac{1+x}{1+t}$, \quad $x(0)=1$
+    \caja{2.5cm}
+    
+    \item $x^{\prime}=\frac{1+x}{1-t^{2}}$, \quad $x(0)=1$
+    \caja{2.5cm}
+    
+    \item $x^{\prime}-x^{1/3}=0$, \quad $x(0)=0$
+    \caja{2.5cm}
+    
+    \item $x^{\prime}=\frac{1+x}{1+t}$, \quad $x(0)=-1$
+    \caja{2.5cm}
+\end{enumerate}
+
+\noindent En todos los casos dar el intervalo maximal de existencia de las soluciones y decir si son únicas. En los casos en que el intervalo maximal de existencia no es la recta real, analizar cuál es la posible causa.
+\caja{3cm}
+
+\newpage
+
+\noindent \textbf{Ejercicio 2.} Si $y=y(t)$ denota el número de habitantes de una población en función del tiempo, se denomina tasa de crecimiento de la población a la función definida como el cociente $y^{\prime}/y$.
+
+\begin{enumerate}[label=(\alph*)]
+    \item Caracterizar (encontrar la ecuación) de las poblaciones con tasa de crecimiento constante.
+    \caja{2.5cm}
+    
+    \item Dibujar el gráfico de $y(t)$ para poblaciones con tasa de crecimiento constante, positiva y negativa.
+    \caja{4cm}
+    
+    \item ¿Cuáles son las poblaciones con tasa de crecimiento nula?
+    \caja{1.5cm}
+    
+    \item Una población tiene tasa de crecimiento constante. El 1 de enero de 2002 tenía 1000 individuos, y cuatro meses después tenía 1020. Estimar el número de individuos que tendrá el 1 de enero del año 2022, usando los resultados anteriores.
+    \caja{3.5cm}
+    
+    \item Caracterizar las poblaciones cuya tasa de crecimiento es una función lineal de $t$ ($at+b$).
+    \caja{3cm}
+    
+    \item Caracterizar las poblaciones cuya tasa de crecimiento es igual $r-cy$, donde $r$ y $c$ son constantes positivas. Este es el llamado crecimiento logístico, en tanto que el correspondiente a tasas constantes es llamado crecimiento exponencial (por razones obvias ¿no?). Para poblaciones pequeñas, ambas formas de crecimiento son muy similares. Comprobar esta afirmación y comprobar también que en el crecimiento logístico $y(t)$ tiende asintóticamente a la recta $y=r/c$.
+    \caja{4.5cm}
+\end{enumerate}
+
+
+\noindent \textbf{Ejercicio 3.} Si un cultivo de bacterias crece con un coeficiente de variación proporcional a la cantidad existente y se sabe además que la población se duplica en 1 hora ¿Cuánto habrá aumentado en 2 horas?
+\caja{3.5cm}
+
+\newpage
+
+\noindent \textbf{Ejercicio 4.} Verifique que las siguientes ecuaciones son homogéneas de grado cero y resuelva:
+\begin{enumerate}[label=\alph*)]
+    \item $tx^{\prime}=x+2t \exp(-x/t)$
+    \caja{3.5cm}
+    
+    \item $txx^{\prime}=2x^{2}-t^{2}$
+    \caja{3.5cm}
+    
+    \item $x^{\prime}=\frac{x+t}{t}$, \quad $x(1)=0$
+    \caja{3.5cm}
+\end{enumerate}
+
+
+\noindent \textbf{Ejercicio 5.} Demuestre que la sustitución $y=at+bx+c$ cambia $x^{\prime}=f(at+bx+c)$ en una ecuación con variables separables y aplique este método para resolver las ecuaciones siguientes:
+\begin{enumerate}[label=\alph*)]
+    \item $x^{\prime}=(x+t)^{2}$
+    \caja{3.5cm}
+    
+    \item $x^{\prime}=\operatorname{sen}^{2}(t-x+1)$
+    \caja{3.5cm}
+\end{enumerate}
+
+
+\noindent \textbf{Ejercicio 6.} 
+\begin{enumerate}[label=(\alph*)]
+    \item Si $ae \neq bd$ demuestre que pueden elegirse constantes $h, k$ de modo que las sustituciones $t=s-h$, $x=y-k$ reducen la ecuación:
+    \[ \frac{dx}{dt}=F\left(\frac{at+bx+c}{dt+ex+f}\right) \]
+    a una ecuación homogénea.
+    \caja{4cm}
+    
+    \item Resuelva las ecuaciones:
+    \begin{enumerate}[label=\roman*)]
+        \item $x^{\prime}=\frac{2x-t+4}{x+t-1}$
+        \caja{3cm}
+        
+        \item $x^{\prime}=\frac{x+t+4}{t-x-6}$
+        \caja{3cm}
+        
+        \item $x^{\prime}=\frac{x+t+4}{x+t-6}$, \quad $x(0)=2$ \quad ¿Se satisface $ae \neq bd$ en este caso?
+        \caja{3cm}
+    \end{enumerate}
+\end{enumerate}
+
+\newpage
+
+\noindent \textbf{Ejercicio 7.} Resuelva las siguientes ecuaciones:
+\begin{enumerate}[label=(\alph*)]
+    \item $(y-x^{3})dx+(x+y^{3})dy=0$
+    \caja{3.5cm}
+    
+    \item $\cos x \cos^2 y dx - 2 \operatorname{sen} x \operatorname{sen} y \cos y dy = 0$
+    \caja{3.5cm}
+    
+    \item $(3x^{2}-y^{2})dy-2xy dx=0$
+    \caja{3.5cm}
+    
+    \item $x dy=(x^{5}+x^{3}y^{2}+y)dx$
+    \caja{3.5cm}
+    
+    \item $2(x+y)\operatorname{sen} y dx+(2(x+y)\operatorname{sen} y+\cos y)dy=0$
+    \caja{3.5cm}
+    
+    \item $3y dx+x dy=0$
+    \caja{3.5cm}
+    
+    \item $(1-y(x+y)\tan(xy))dx+(1-x(x+y)\tan(xy))dy=0$
+    \caja{3.5cm}
+\end{enumerate}
+
+
+\noindent \textbf{Ejercicio 8.} Considere la ecuación lineal de primer orden
+\begin{equation}
+y^{\prime}+p(x)y=q(x) \tag{*}
+\end{equation}
+\begin{enumerate}[label=(\alph*)]
+    \item Busque una función $\mu(x)$ tal que $\mu(x)(y^{\prime}(x)+p(x)y(x))=(\mu(x)y(x))^{\prime}$
+    \caja{3.5cm}
+    
+    \item Multiplique la ecuación (*) por $\mu$ y halle su solución general. $\mu$ se denomina factor integrante.
+    \caja{3.5cm}
+\end{enumerate}
+
+\newpage
+
+\noindent \textbf{Ejercicio 9.} Hallar la ecuación de una curva tal que la pendiente de la recta tangente en un punto cualquiera es la mitad de la pendiente de la recta que une el punto con el origen.
+\caja{4.5cm}
+
+\noindent \textbf{Ejercicio 10.} Hallar la ecuación de las curvas tales que la normal en un punto cualquiera pasa por el origen.
+\caja{4.5cm}
+
+\noindent \textbf{Ejercicio 11.} Demostrar que la curva para la cual la pendiente de la tangente en cualquier punto es proporcional a la abscisa del punto de contacto es una parábola.
+\caja{4.5cm}
+
+\noindent \textbf{Ejercicio 12.} Hallar la ecuación de una curva del primer cuadrante tal que para cada punto $(x_{0},y_{0})$ de la misma, la ordenada al origen de la recta tangente a la curva en $(x_{0},y_{0})$ sea $2(x_{0}+y_{0})$.
+\caja{4.5cm}
+
+
+\noindent \textbf{Ejercicio 13.}
+\begin{enumerate}[label=\arabic*.]
+    \item Hallar las soluciones de:
+    \begin{enumerate}[label=\roman*)]
+        \item $y^{\prime}+y=\operatorname{sen}(x)$
+        \caja{3cm}
+        \item $y^{\prime}+y=3 \cos(2x)$
+        \caja{3cm}
+    \end{enumerate}
+    \item Halle las soluciones de $y^{\prime}+y=\operatorname{sen}(x)+3 \cos(2x)$ cuya gráfica pase por el origen (Piense, y no haga cuentas de más).
+    \caja{3.5cm}
+\end{enumerate}
+
+\newpage
+
+\noindent \textbf{Ejercicio 14.} Sea la ecuación no homogénea $y^{\prime}+a(x)y=b(x)$ donde $a, b:\mathbb{R}\rightarrow\mathbb{R}$ son continuas con período $p>0$ y $b\not\equiv0$;
+\begin{enumerate}[label=\arabic*.]
+    \item Pruebe que una solución de esta ecuación verifica:
+    \[ \Phi(x+p)=\Phi(x), \quad \forall x\in\mathbb{R} \iff \Phi(0)=\Phi(p) \]
+    \caja{4.5cm}
+    
+    \item Encuentre las soluciones de período $2\pi$ para las ecuaciones:
+    \[ y^{\prime}+3y=\cos(x) \qquad y^{\prime}+\cos(x)y=\operatorname{sen}(2x) \]
+    \caja{5cm}
+\end{enumerate}
+
+\noindent \textbf{Ejercicio 15.} Suponga que el ritmo al que se enfría un cuerpo caliente es proporcional a la diferencia de temperatura entre él y el ambiente que lo rodea (ley de enfriamiento de Newton). Un cuerpo se calienta $110^{\circ}C$ y se expone al aire libre a una temperatura de $10^{\circ}C$. Al cabo de una hora su temperatura es de $60^{\circ}C$. ¿Cuánto tiempo adicional debe transcurrir para que se enfríe a $30^{\circ}C$?
+\caja{5cm}
+
+\newpage
+
+\noindent \textbf{Ejercicio 16.} Se sabe que el Carbono 14 tiene una semivida de 5600 años. Es decir, su cantidad se reduce a la mitad por desintegración radioactiva en ese lapso de tiempo. 
+Si en una roca sedimentaria había al formarse un 40\% de Carbono 14 y ahora hay un 2\% ¿Cuánto tiempo pasó desde que se depositaron los sedimentos? \\
+\textit{Observación: la tasa de cambio del Carbono 14, $\dot{x}/x$ es constante.}
+\caja{5.5cm}
+
+\noindent \textbf{Ejercicio 17.} Si la resistencia del aire que actúa sobre un cuerpo de masa $m$ en caída libre ejerce una fuerza retardadora sobre el mismo proporcional a la velocidad $(=-kv)$, la ecuación diferencial del movimiento es:
+\[ \frac{d^{2}y}{dt^{2}}=g-c\frac{dy}{dt}, \qquad \text{o bien} \qquad \frac{dv}{dt}=g-cv \]
+donde $c=k/m$. Supongamos $v=0$ en el instante $t=0$, y $c>0$. Encontrar $\lim_{t\rightarrow\infty}v(t)$ (llamada velocidad terminal). \\
+Si la fuerza retardadora es proporcional al cuadrado de la velocidad, la ecuación se convierte en:
+\[ \frac{dv}{dt}=g-cv^{2} \]
+Si $v(0)=0$, encuentre la velocidad terminal en este caso.
+\caja{6cm}
+
+\newpage
+
+\noindent \textbf{Ejercicio 18.} La ecuación $y^{\prime}+P(x)y=Q(x)y^{n}$, que se conoce como la ecuación de Bernoulli, es lineal cuando $n=0, 1$. Demuestre que se puede reducir a una ecuación lineal para cualquier valor de $n\ne1$ por el cambio de variable $z=y^{1-n}$ y aplique este método para resolver las ecuaciones siguientes:
+\begin{enumerate}[label=\alph*)]
+    \item $xy^{\prime}+y=x^{4}y^{3}$
+    \caja{4.5cm}
+    
+    \item $xy^{2}y^{\prime}+y^{3}=x \cos x$
+    \caja{4.5cm}
+    
+    \item $xy^{\prime}-3y=x^{4}$
+    \caja{4.5cm}
+\end{enumerate}
+
+\end{document}

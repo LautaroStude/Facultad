@@ -1,0 +1,758 @@
+% !TEX TS-program = pdflatex
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage[a4paper, margin=2cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{enumitem}
+\usepackage{calc}
+\usepackage{xcolor}
+
+% Definición del comando para crear las cajas de escritura
+\newcommand{\caja}[1]{%
+	\par\vspace{0.2cm}\noindent
+	\fbox{\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+			\vspace{0.1cm}\hspace{0.1cm}\textcolor{gray}{\small\textsl{Resolución:}}
+			\vspace{#1}
+	\end{minipage}}%
+	\par\vspace{0.3cm}
+}
+
+% Definición para cajas con soluciones desarrolladas
+\newcommand{\cajasol}[1]{%
+	\par\vspace{0.2cm}\noindent
+	\fbox{\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+			\vspace{0.1cm}\hspace{0.1cm}\textcolor{blue}{\small\textsl{Resolución:}}
+			
+			\vspace{0.1cm}
+			\hspace{0.1cm}\parbox{\dimexpr\linewidth-0.4cm\relax}{#1}
+			\vspace{0.2cm}
+	\end{minipage}}%
+	\par\vspace{0.3cm}
+}
+
+\begin{document}
+	
+	\begin{center}
+		\textsc{Universidad de Buenos Aires} \hfill \textsc{Facultad de Ciencias Exactas y Naturales} \\
+		\vspace{0.15cm}
+		\hrule
+		\vspace{0.4cm}
+		\textbf{\Large ANÁLISIS II -- ANÁLISIS MATEMÁTICO II -- MATEMÁTICA 3} \\
+		\vspace{0.2cm}
+		\textsl{Segundo Cuatrimestre 2022} \\
+		\vspace{0.4cm}
+		\textbf{\Large Práctica 4: Teoremas de Stokes y de Gauss. Campos conservativos. Lautaro Stude}
+		\vspace{0.25cm}
+		\hrule
+	\end{center}
+	
+	\vspace{0.5cm}
+	
+	\noindent \textbf{Ejercicio 1.} Verificar el teorema de Stokes para el hemisferio superior $z=\sqrt{1-x^{2}-y^{2}}$, $z\ge0$ y el campo vectorial $F(x,y,z)=(x,y,z)$.
+\cajasol{
+	El teorema de Stokes establece que $\iint_S (\nabla \times F) \cdot dS = \oint_{\partial S} F \cdot ds$.
+	
+	\textbf{1. Integral de superficie:} Calculamos el rotor del campo $F(x,y,z) = (x,y,z)$:
+	\[ \nabla \times F = \left( \frac{\partial z}{\partial y} - \frac{\partial y}{\partial z}, \frac{\partial x}{\partial z} - \frac{\partial z}{\partial x}, \frac{\partial y}{\partial x} - \frac{\partial x}{\partial y} \right) = (0,0,0) \]
+	Por lo tanto, el flujo del rotor a través de $S$ es $\iint_S (0,0,0) \cdot dS = 0$.
+	
+	\textbf{2. Integral de línea:} La frontera $\partial S$ es la intersección del hemisferio con el plano $z=0$, es decir, la circunferencia $x^2+y^2=1$. La parametrizamos en sentido antihorario como $r(t) = (\cos t, \operatorname{sen} t, 0)$ con $0 \le t \le 2\pi$.
+	El vector tangente es $r'(t) = (-\operatorname{sen} t, \cos t, 0)$.
+	Evaluando el campo sobre la curva tenemos $F(r(t)) = (\cos t, \operatorname{sen} t, 0)$.
+	La integral de línea resulta:
+	\[ \oint_{\partial S} F \cdot ds = \int_0^{2\pi} (\cos t, \operatorname{sen} t, 0) \cdot (-\operatorname{sen} t, \cos t, 0) \, dt = \int_0^{2\pi} (-\operatorname{sen} t \cos t + \operatorname{sen} t \cos t) \, dt = \int_0^{2\pi} 0 \, dt = 0 \]
+	Ambas integrales dan 0, con lo cual se verifica el teorema de Stokes.
+}
+	
+\noindent \textbf{Ejercicio 2.} Sea $S$ la superficie cilíndrica con tapa, que es unión de dos superficies $S_{1}$ y $S_{2}$ donde $S_{1}$ es el conjunto de $(x, y, z)$ con $x^{2}+y^{2}=1$, $0\le z\le 1$ y $S_{2}$ es el conjunto de $(x,y,z)$ con $x^{2}+y^{2}+(z-1)^{2}=1$, $z\ge 1$ orientadas con la normal que apunta hacia afuera del cilindro y de la esfera, respectivamente. Sea $F(x,y,z)=(zx+z^{2}y+x, z^{3}yx+y, z^{4}x^{2})$. Calcular $\int_{S}(\nabla\times F)\cdot dS$.
+\cajasol{
+	Para resolverlo, aplicamos el Teorema de Stokes: $\iint_S (\nabla \times F) \cdot dS = \oint_{\partial S} F \cdot ds$.
+	
+	La frontera $\partial S$ de la superficie es la circunferencia en la base del cilindro, ubicada en el plano $z=0$, cuya ecuación es $x^2+y^2=1$. 
+	
+	Evaluamos el campo $F$ sobre la curva $\partial S$ (donde $z=0$):
+	\[ F(x,y,0) = (0\cdot x + 0^2\cdot y + x, 0^3\cdot yx + y, 0^4\cdot x^2) = (x, y, 0) \]
+	
+	Parametrizamos la circunferencia orientada positivamente (antihorario) como $r(t) = (\cos t, \operatorname{sen} t, 0)$ con $0 \le t \le 2\pi$. 
+	El diferencial de curva es $dr = (-\operatorname{sen} t, \cos t, 0) \, dt$.
+	
+	Calculamos la integral de línea:
+	\[ \oint_{\partial S} F \cdot ds = \int_0^{2\pi} (\cos t, \operatorname{sen} t, 0) \cdot (-\operatorname{sen} t, \cos t, 0) \, dt = \int_0^{2\pi} (-\cos t \operatorname{sen} t + \operatorname{sen} t \cos t) \, dt \]
+	\[ \oint_{\partial S} F \cdot ds = \int_0^{2\pi} 0 \, dt = 0 \]
+	
+	Por lo tanto, la integral pedida es $\iint_S (\nabla \times F) \cdot dS = 0$.
+}
+	
+\noindent \textbf{Ejercicio 3.}
+\begin{enumerate}[label=(\alph*)]
+	\item Considerar dos superficies $S_{1}$ y $S_{2}$ con la misma frontera $\partial S$. Describir, mediante dibujos, como deben orientarse $S_{1}$ y $S_{2}$ para asegurar que
+	\[ \int_{S_{1}}(\nabla\times F)\cdot dS = \int_{S_{2}}(\nabla\times F)\cdot dS \]
+	\cajasol{
+		Por el Teorema de Stokes, ambas integrales de superficie equivalen a la integral de línea $\oint_{\partial S} F \cdot ds$. 
+		Para que las integrales sean iguales, ambas superficies deben inducir la \textbf{misma orientación} sobre su frontera común $\partial S$. Es decir, mediante la regla de la mano derecha, los vectores normales de $S_1$ y $S_2$ deben apuntar "hacia el mismo lado" de la curva frontera para que el sentido de recorrido en $\partial S$ coincida.
+	}
+	
+	\item Deducir que si $S$ es una superficie cerrada, entonces $\int_{S}(\nabla\times F)\cdot dS=0$ (una superficie cerrada es aquella que constituye la frontera de una región en el espacio; así, por ejemplo, una esfera es una superficie cerrada).
+	\cajasol{
+		Se puede deducir por
+		\textbf{Stokes:} Si $S$ es una superficie cerrada, no tiene borde, es decir, su frontera es el conjunto vacío ($\partial S = \emptyset$). Entonces: $\iint_S (\nabla \times F) \cdot dS = \oint_{\emptyset} F \cdot ds = 0$.
+
+	}
+	
+	\item Calcular $\int_{S}(\nabla\times F)\cdot dS$ donde $S$ es el elipsoide $x^{2}+y^{2}+2z^{2}=10$ y $F=(\operatorname{sen}(xy), e^{x}, -yz)$.
+	\cajasol{
+		La superficie $S$ es un elipsoide, el cual es una superficie cerrada (no tiene curva frontera). 
+		Como se demostró en el inciso anterior (b), el flujo del rotor de cualquier campo vectorial de clase $C^1$ a través de una superficie cerrada es siempre cero.
+		Por lo tanto, no es necesario hacer ninguna cuenta extra, $\iint_S (\nabla \times F) \cdot dS = 0$.
+	}
+\end{enumerate}
+	
+	\newpage
+	
+\noindent \textbf{Ejercicio 4.} Estudiar la aplicabilidad del teorema de Stokes al campo $F=(-\frac{y}{x^{2}+y^{2}}, \frac{x}{x^{2}+y^{2}}, 0)$ y la superficie $S$, en cada uno de los siguientes casos:
+\begin{enumerate}[label=(\alph*)]
+	\item $S = $ círculo de radio $a>0$ centrado en el origen en el plano $z=0$.
+	\cajasol{
+		El campo vectorial $F$ tiene singularidades donde se anula el denominador, es decir, en todo el eje $z$ ($x=0$ e $y=0$). 
+		Como la superficie $S$ es el disco cerrado $x^2+y^2 \le a^2$ en el plano $z=0$, esta superficie incluye al origen $(0,0,0)$. 
+		Dado que el campo no está definido (y por ende no es $C^1$) en el origen, \textbf{el Teorema de Stokes no es aplicable}.
+	}
+	\item $S = $ región del plano $z=0$ entre $x^{2}+y^{2}=1$ y $x+y=1$.
+	\cajasol{
+		La superficie $S$ es la porción del plano $z=0$ delimitada por el arco de circunferencia $x^2+y^2=1$ y el segmento de recta $x+y=1$ en el primer cuadrante. 
+		Todos los puntos de esta región están alejados del origen (el punto más cercano es la proyección sobre la recta $x+y=1$, a una distancia de $1/\sqrt{2}$). 
+		Como el origen $(0,0,0) \notin S$, el campo $F$ es continuo y diferenciable (de clase $C^1$) en un entorno abierto que contiene a toda la superficie $S$. 
+		Por lo tanto, en este caso \textbf{el Teorema de Stokes sí es aplicable}.
+	}
+\end{enumerate}
+	
+\noindent \textbf{Ejercicio 5.}
+\begin{enumerate}[label=(\alph*)]
+	\item Hallar el trabajo realizado por el campo de fuerzas gravitacional $F=-GmM\frac{X}{||X||^{3}}$ con $X\in\mathbb{R}^{3}$, cuando el punto de aplicación de $F$ se desplaza de $(1,1,1)$ a $(2,2,2)$ a lo largo de:
+	\begin{enumerate}[label=(\roman*)]
+		\item el segmento que une los dos puntos.
+		\cajasol{
+			Parametrizamos el segmento que une $A=(1,1,1)$ con $B=(2,2,2)$ como $r(t) = (1+t, 1+t, 1+t)$ con $0 \le t \le 1$.
+			El vector tangente es $r'(t) = (1, 1, 1)$, por lo que $ds = (1,1,1) \, dt$.
+			La norma es $||r(t)|| = \sqrt{(1+t)^2 + (1+t)^2 + (1+t)^2} = \sqrt{3}(1+t)$.
+			
+			Evaluamos el campo en la curva:
+			\[ F(r(t)) = -GmM \frac{(1+t, 1+t, 1+t)}{(\sqrt{3}(1+t))^3} = -GmM \frac{(1, 1, 1)}{3\sqrt{3}(1+t)^2} \]
+			
+			El trabajo es la integral de línea $W = \int_C F \cdot ds$. Separando en líneas para evitar que se desborde de la caja:
+			\begin{align*} 
+				W &= \int_0^1 -GmM \frac{(1,1,1) \cdot (1,1,1)}{3\sqrt{3}(1+t)^2} \, dt \\
+				&= \int_0^1 -GmM \frac{3}{3\sqrt{3}(1+t)^2} \, dt = -\frac{GmM}{\sqrt{3}} \int_0^1 (1+t)^{-2} \, dt \\
+				&= -\frac{GmM}{\sqrt{3}} \left[ -\frac{1}{1+t} \right]_0^1 = -\frac{GmM}{\sqrt{3}} \left( -\frac{1}{2} - (-1) \right) = -\frac{GmM}{2\sqrt{3}} 
+			\end{align*}
+		}
+		\item una poligonal formada por aristas paralelas a los ejes del cubo del cual $(1,1,1)$ y $(2,2,2)$ son vértices opuestos diagonalmente.
+		\cajasol{
+			Como veremos en el inciso (b), el campo gravitatorio $F$ es un campo gradiente (conservativo) en todo su dominio $\mathbb{R}^3 \setminus \{(0,0,0)\}$. 
+			Una de las propiedades fundamentales de los campos conservativos es que el trabajo realizado (la integral curvilínea) es independiente de la trayectoria que une los puntos inicial y final.
+			Dado que tanto el segmento del inciso (i) como la poligonal de este inciso no pasan por el origen y conectan los mismos puntos $(1,1,1)$ y $(2,2,2)$, el trabajo realizado es exactamente el mismo:
+			\[ W = -\frac{GmM}{2\sqrt{3}} \]
+		}
+	\end{enumerate}
+	\item Comprobar que la integral curvilínea sólo depende de los puntos inicial y final. Calcular $\nabla\times F$ y hallar una función potencial $f:\mathbb{R}^{3}-\{0\}\rightarrow\mathbb{R}$ para $F$.
+	\cajasol{
+		Si escribimos $F = -GmM (x(x^2+y^2+z^2)^{-3/2}, y(x^2+y^2+z^2)^{-3/2}, z(x^2+y^2+z^2)^{-3/2})$, podemos calcular el rotor.
+		Por ejemplo, la componente en $z$ (las demás son análogas por simetría), dividida usando el entorno align para que quepa en la caja:
+		\begin{align*}
+			(\nabla \times F)_3 &= \frac{\partial F_2}{\partial x} - \frac{\partial F_1}{\partial y} \\
+			&= -GmMy \left(-\frac{3}{2}(x^2+y^2+z^2)^{-5/2} (2x)\right) \\
+			&\quad - \left(-GmMx \left(-\frac{3}{2}(x^2+y^2+z^2)^{-5/2} (2y)\right)\right) \\
+			&= \frac{3GmMxy}{||X||^5} - \frac{3GmMxy}{||X||^5} = 0
+		\end{align*}
+		Al dar $(0,0,0)$, y siendo el dominio simplemente conexo, concluimos que admite función potencial $f$ tal que $\nabla f = F$.
+		Buscamos $f$ integrando: sabemos que $\frac{\partial}{\partial x} (||X||^{-1}) = -x ||X||^{-3}$.
+		Por ende, $f(x,y,z) = \frac{GmM}{\sqrt{x^2+y^2+z^2}} = \frac{GmM}{||X||}$.
+		Al admitir función potencial, el campo es conservativo y la integral de línea es independiente del camino (sólo depende de los puntos finales).
+	}
+\end{enumerate}
+	
+	\noindent \textbf{Ejercicio 6.} Determinar cuál de los siguientes campos vectoriales $F$ en el plano es el gradiente de una función escalar $f$. Si existe dicha $f$, hallarla.
+\begin{enumerate}[label=(\alph*)]
+	\item $F(x,y)=(x,y)$
+	\cajasol{
+		Verificamos la condición necesaria de irrotacionalidad en $\mathbb{R}^2$:
+		\[ \frac{\partial F_2}{\partial x} = 0 \quad \text{y} \quad \frac{\partial F_1}{\partial y} = 0 \]
+		Como las derivadas cruzadas coinciden y el dominio es simplemente conexo, existe función potencial $f$.
+		Buscamos $f$ integrando:
+		$\frac{\partial f}{\partial x} = x \implies f(x,y) = \frac{x^2}{2} + g(y)$.
+		Derivando respecto a $y$: $\frac{\partial f}{\partial y} = g'(y) = y \implies g(y) = \frac{y^2}{2}$.
+		La función potencial es $f(x,y) = \frac{x^2+y^2}{2} + C$.
+	}
+	
+	\item $F(x,y)=(x^{2}+y^{2}, 2xy)$
+	\cajasol{
+		Verificamos la irrotacionalidad:
+		\[ \frac{\partial F_2}{\partial x} = 2y \quad \text{y} \quad \frac{\partial F_1}{\partial y} = 2y \]
+		Como son iguales, el campo es el gradiente de un potencial.
+		Integramos $F_1$: $\frac{\partial f}{\partial x} = x^2+y^2 \implies f(x,y) = \frac{x^3}{3} + xy^2 + g(y)$.
+		Derivamos respecto a $y$ e igualamos a $F_2$: $\frac{\partial f}{\partial y} = 2xy + g'(y) = 2xy \implies g'(y) = 0 \implies g(y) = C$.
+		La función potencial es $f(x,y) = \frac{x^3}{3} + xy^2 + C$.
+	}
+	
+	\item $F(x,y)=(\cos(xy)-xy\operatorname{sen}(xy), -x^{2}\operatorname{sen}(xy))$
+	\cajasol{
+		Calculamos las derivadas cruzadas:
+		\[ \frac{\partial F_1}{\partial y} = -x\operatorname{sen}(xy) - (x\operatorname{sen}(xy) + x^2y\cos(xy)) = -2x\operatorname{sen}(xy) - x^2y\cos(xy) \]
+		\[ \frac{\partial F_2}{\partial x} = -2x\operatorname{sen}(xy) - x^2y\cos(xy) \]
+		Al ser iguales, existe $f$. Integramos $F_2$ respecto a $y$:
+		$f(x,y) = \int -x^2\operatorname{sen}(xy) \, dy = x\cos(xy) + g(x)$.
+		Derivando respecto a $x$ e igualando a $F_1$:
+		$f_x = \cos(xy) - xy\operatorname{sen}(xy) + g'(x) = \cos(xy) - xy\operatorname{sen}(xy) \implies g'(x) = 0$.
+		Por lo tanto, la función potencial es $f(x,y) = x\cos(xy) + C$.
+	}
+\end{enumerate}
+	
+\noindent \textbf{Ejercicio 7.} Evaluar $\int_{\mathcal{C}}F\cdot ds$ donde:
+\begin{enumerate}[label=(\alph*)]
+	\item $F=(2xyz+\operatorname{sen}(x), x^{2}z, x^{2}y)$ y $\mathcal{C}$ es la curva que está parametrizada por $(\cos^{5}t, \operatorname{sen}^{3}t, t^{4})$, $0\le t\le\pi$.
+	\cajasol{
+		Como la parametrización es compleja, verificamos si el campo es gradiente hallando una función potencial $f$ tal que $\nabla f = F$.
+		De $F_3$: $\frac{\partial f}{\partial z} = x^2y \implies f(x,y,z) = x^2yz + g(x,y)$.
+		Derivando respecto a $y$ e igualando a $F_2$: $\frac{\partial f}{\partial y} = x^2z + g_y = x^2z \implies g_y = 0 \implies g(x,y) = h(x)$.
+		Derivando respecto a $x$ e igualando a $F_1$: $\frac{\partial f}{\partial x} = 2xyz + h'(x) = 2xyz + \operatorname{sen}(x) \implies h'(x) = \operatorname{sen}(x) \implies h(x) = -\cos(x)$.
+		La función potencial es $f(x,y,z) = x^2yz - \cos(x)$.
+		Calculamos los puntos inicial y final de la curva:
+		$t=0 \implies A = (\cos^5(0), \operatorname{sen}^3(0), 0^4) = (1, 0, 0)$.
+		$t=\pi \implies B = (\cos^5(\pi), \operatorname{sen}^3(\pi), \pi^4) = (-1, 0, \pi^4)$.
+		Aplicamos el Teorema Fundamental de las Integrales de Línea:
+		\[ \int_{\mathcal{C}} F \cdot ds = f(B) - f(A) = f(-1, 0, \pi^4) - f(1, 0, 0) \]
+		\[ = ((-1)^2 \cdot 0 \cdot \pi^4 - \cos(-1)) - (1^2 \cdot 0 \cdot 0 - \cos(1)) = -\cos(1) - (-\cos(1)) = 0 \]
+	}
+	\item $F=(\cos(xy^{2})-xy^{2}\operatorname{sen}(xy^{2}), -2x^{2}y\operatorname{sen}(xy^{2}), 0)$, y $\mathcal{C}$ es la curva parametrizada por $(e^{t}, e^{t+1}, 0)$, $-1\le t\le 0$.
+	\cajasol{
+		Nuevamente buscamos una función potencial $f(x,y)$.
+		Integramos $F_2$ respecto a $y$: $f(x,y) = \int -2x^2y\operatorname{sen}(xy^2) \, dy$.
+		Usando sustitución $u=xy^2, du=2xy \, dy$, tenemos:
+		$f(x,y) = \int -x\operatorname{sen}(u) \, du = x\cos(u) + g(x) = x\cos(xy^2) + g(x)$.
+		Derivamos respecto a $x$ para hallar $g(x)$:
+		$\frac{\partial f}{\partial x} = 1\cdot\cos(xy^2) + x(-\operatorname{sen}(xy^2))y^2 + g'(x) = \cos(xy^2) - xy^2\operatorname{sen}(xy^2) + g'(x)$.
+		Igualando a $F_1$, vemos que $g'(x) = 0$, por lo que $f(x,y,z) = x\cos(xy^2)$.
+		Calculamos los puntos inicial y final:
+		$t=-1 \implies A = (e^{-1}, e^0, 0) = (1/e, 1, 0)$.
+		$t=0 \implies B = (e^0, e^1, 0) = (1, e, 0)$.
+		Por el Teorema Fundamental de Integrales de Línea:
+		\[ \int_{\mathcal{C}} F \cdot ds = f(B) - f(A) = f(1, e, 0) - f(1/e, 1, 0) \]
+		\[ = 1 \cdot \cos(1 \cdot e^2) - \frac{1}{e} \cdot \cos\left(\frac{1}{e} \cdot 1^2\right) = \cos(e^2) - \frac{1}{e}\cos\left(\frac{1}{e}\right) \]
+	}
+\end{enumerate}
+	
+\noindent \textbf{Ejercicio 8.} Calcular
+\[\int_{\mathcal{C}}(y+\operatorname{sen}(x))dx + (\frac{3}{2}z^{2}+\cos(y))dy + 2x^{3}dz\]
+donde $\mathcal{C}$ es la curva orientada parametrizada por $r(t)=(\operatorname{sen}(t), \cos(t), \operatorname{sen}(2t))$, $0\le t\le 2\pi$. \\
+\textit{Sugerencia: Observar que $\mathcal{C}$ se encuentra en la superficie $z=2xy$.}
+\cajasol{
+	Observamos que $\mathcal{C}$ es una curva cerrada. Aplicaremos el Teorema de Stokes: $\oint_{\mathcal{C}} F \cdot ds = \iint_S (\nabla \times F) \cdot N \, dS$.
+	El campo es $F = (y+\operatorname{sen}(x), \frac{3}{2}z^{2}+\cos(y), 2x^{3})$. Calculamos su rotor:
+	\[\nabla \times F = \left( 0 - 3z, 0 - 6x^2, 0 - 1 \right) = (-3z, -6x^2, -1)\]
+	
+	La curva $\mathcal{C}$ proyectada en el plano $xy$ es la circunferencia $x=\operatorname{sen}(t), y=\cos(t)$, que se recorre en sentido \textbf{horario} al variar $t$ de $0$ a $2\pi$. 
+	La superficie $S$ encerrada es la porción del paraboloide hiperbólico $z = 2xy$ sobre el disco $D: x^2+y^2 \le 1$.
+	Parametrizamos $S$ como $\Phi(x,y) = (x, y, 2xy)$. El vector normal estándar es $\Phi_x \times \Phi_y = (-2y, -2x, 1)$.
+	
+	Por la regla de la mano derecha, como la curva se recorre en sentido horario en el plano $xy$, la normal debe apuntar hacia abajo (componente $z$ negativa). Tomamos $N = (2y, 2x, -1)$.
+	Planteamos la integral de superficie, reemplazando $z=2xy$:
+	\begin{align*} 
+		\iint_S (\nabla \times F) \cdot N \, dS &= \iint_D (-6xy, -6x^2, -1) \cdot (2y, 2x, -1) \, dx dy \\
+		&= \iint_D (-12xy^2 - 12x^3 + 1) \, dx dy 
+	\end{align*}
+	Por la simetría del disco $D$ centrado en el origen, la integral de potencias impares como $x$ y $x^3$ es cero.
+	\[\iint_D (-12xy^2 - 12x^3) \, dx dy = 0\]
+	Por lo tanto, sólo sobrevive la constante 1:
+	\[\iint_D 1 \, dx dy = \text{Área}(D) = \pi(1)^2 = \pi\]
+}
+	
+\noindent \textbf{Ejercicio 9.} Sea $f\in C^{1}(B)$ donde $B$ es una bola en $\mathbb{R}^{3}$. Deducir que si $\nabla f=0$ en $B$ se sigue que $f$ es constante en $B$.
+\cajasol{
+	Como $B$ es una bola en $\mathbb{R}^3$, es un conjunto convexo. Esto significa que dados dos puntos cualesquiera $A, B \in B$, el segmento de recta que los une está completamente contenido dentro de $B$.
+	Podemos parametrizar este segmento como $r(t) = A + t(B-A)$ con $0 \le t \le 1$.
+	
+	Por el Teorema del Valor Medio para funciones de varias variables, existe un punto $C$ perteneciente al segmento (y por lo tanto $C \in B$) tal que:
+	\[ f(B) - f(A) = \nabla f(C) \cdot (B-A) \]
+	
+	Como por hipótesis $\nabla f = \vec{0}$ en todos los puntos de la bola $B$, entonces en particular $\nabla f(C) = \vec{0}$.
+	Reemplazando en la ecuación:
+	\[ f(B) - f(A) = \vec{0} \cdot (B-A) = 0 \implies f(B) = f(A) \]
+	
+	Dado que la elección de $A$ y $B$ fue totalmente arbitraria, la función toma el mismo valor en cualquier par de puntos de la bola. 
+	Por consiguiente, concluimos que $f$ es constante en $B$.
+}
+	
+\noindent \textbf{Ejercicio 10.} Calcular la integral de línea $\int_{\mathcal{C}}F\cdot ds$ donde $F$ es el campo vectorial definido por:
+\[ F(x,y,z)=(2xy+z^{2}, x^{2}-2yz, 2xz-y^{2}) \]
+y $\mathcal{C}$ es la curva que está contenida en la esfera $x^{2}+y^{2}+z^{2}=1$ y el plano de ecuación $y=x$ recorrida desde el punto $(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0)$ al polo norte.
+\cajasol{
+	Primero verificamos si el campo es conservativo buscando una función potencial $f$ tal que $\nabla f = F$.
+	De la primera componente: $f_x = 2xy + z^2 \implies f(x,y,z) = \int (2xy+z^2)dx = x^2y + xz^2 + g(y,z)$.
+	Derivamos respecto a $y$ e igualamos a $F_2$:
+	\[ f_y = x^2 + g_y(y,z) = x^2 - 2yz \implies g_y(y,z) = -2yz \implies g(y,z) = -y^2z + h(z) \]
+	Hasta ahora $f(x,y,z) = x^2y + xz^2 - y^2z + h(z)$.
+	Derivamos respecto a $z$ e igualamos a $F_3$:
+	\[ f_z = 2xz - y^2 + h'(z) = 2xz - y^2 \implies h'(z) = 0 \implies h(z) = C \]
+	
+	El campo es conservativo y una función potencial es $f(x,y,z) = x^2y - y^2z + xz^2$.
+	El punto inicial es $A = \left(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0\right)$ y el final es el polo norte de la esfera unitaria $B = (0,0,1)$.
+	
+	Como el campo es conservativo, la integral no depende del camino y aplicamos el Teorema Fundamental de las Integrales de Línea:
+	\begin{align*} 
+		\int_{\mathcal{C}} F \cdot ds &= f(B) - f(A) = f(0,0,1) - f\left(\frac{1}{\sqrt{2}}, \frac{1}{\sqrt{2}}, 0\right) \\
+		&= (0 - 0 + 0) - \left( \left(\frac{1}{\sqrt{2}}\right)^2 \left(\frac{1}{\sqrt{2}}\right) - 0 + 0 \right) \\
+		&= 0 - \left( \frac{1}{2} \cdot \frac{1}{\sqrt{2}} \right) = -\frac{1}{2\sqrt{2}} = -\frac{\sqrt{2}}{4}
+	\end{align*}
+}
+	
+	\newpage
+	
+	\noindent \textbf{Ejercicio 11.} Rehacer el ejercicio 16) de la Práctica 2, usando el Teorema de Gauss.
+	\caja{4cm}
+	
+	\noindent \textbf{Ejercicio 12.} Calcular $\int_{S}(x+y+z)dS$ donde $S$ es el borde de la bola unitaria, es decir $S=\{(x,y,z) / x^{2}+y^{2}+z^{2}=1\}$.
+\cajasol{
+	La integral se puede separar en tres términos lineales:
+	\[ \iint_{S} (x+y+z) \, dS = \iint_{S} x \, dS + \iint_{S} y \, dS + \iint_{S} z \, dS \]
+	Observamos que la superficie $S$ es la esfera de radio 1 centrada en el origen, la cual es completamente simétrica respecto a los tres planos coordenados ($x=0$, $y=0$, $z=0$).
+	
+	Dado que las funciones $f(x,y,z)=x$, $g(x,y,z)=y$ y $h(x,y,z)=z$ son impares respecto a las variables $x$, $y$ y $z$ respectivamente, la integral de cada una sobre un dominio simétrico se anula.
+	Por ejemplo, para todo punto $(x,y,z) \in S$ existe el punto $(-x,y,z) \in S$, cancelando sus aportes en la integral de $x$.
+	\[ \iint_{S} x \, dS = 0, \quad \iint_{S} y \, dS = 0, \quad \iint_{S} z \, dS = 0 \]
+	Por lo tanto, la suma total es $0+0+0=0$.
+}
+	
+\noindent \textbf{Ejercicio 13.} Analizar la aplicabilidad del Teorema de Gauss para el campo gravitatorio $F = -GMm\frac{r}{||r||^{3}}$ donde $r$ es el vector que apunta de la posición de la masa $m$ a la $M$, $||r||$ es su longitud y $G$ es la constante gravitatoria, considerando como región la bola unitaria en $\mathbb{R}^{3}$.
+\cajasol{
+	El Teorema de Gauss  exige que el campo vectorial sea continuamente diferenciable (de clase $C^1$) en un conjunto abierto que contenga a la región de integración.
+	
+	La región propuesta es la bola unitaria $B = \{(x,y,z) \in \mathbb{R}^3 : ||r|| \le 1\}$, la cual incluye al origen de coordenadas $(0,0,0)$.
+	
+	El campo gravitatorio $F(r) = -GMm\frac{r}{||r||^{3}}$ presenta una singularidad en el origen: su denominador se anula y la función diverge. Por lo tanto, el campo no está definido (y mucho menos es de clase $C^1$) en el punto $(0,0,0) \in B$.
+	
+	Al no cumplirse las hipótesis de regularidad en todo el dominio $B$, \textbf{el Teorema de Gauss no es aplicable directamente} sobre la bola unitaria.
+	
+}
+	
+\noindent \textbf{Ejercicio 14.} Calcular $\int_{S}F\cdot dS$ siendo $F=(x^{3},y^{3},z^{3})$ y $S$ la esfera de radio $R$ con la normal que apunta hacia adentro.
+\cajasol{
+	Para calcular el flujo a través de la superficie esférica cerrada $S$, utilizo el Teorema de Gauss.
+	Sea $V$ la bola maciza de radio $R$ tal que $\partial V = S$. El campo vectorial es $F = (x^3, y^3, z^3)$.
+	
+	Primero, calculamos la divergencia de $F$:
+	\[ \operatorname{div} F = \frac{\partial (x^3)}{\partial x} + \frac{\partial (y^3)}{\partial y} + \frac{\partial (z^3)}{\partial z} = 3x^2 + 3y^2 + 3z^2 = 3(x^2+y^2+z^2) \]
+	
+	El Teorema de Gauss asume por convención que la normal apunta hacia el exterior de la superficie. Como el enunciado especifica que la normal de $S$ apunta hacia \textbf{adentro}, el flujo total llevará un signo negativo respecto al de Gauss. Planteamos:
+	\[ \iint_S F \cdot dS = - \iiint_V \operatorname{div} F \, dV = - \iiint_V 3(x^2+y^2+z^2) \, dV \]
+	
+	Pasamos a coordenadas esféricas para resolver la integral sobre el volumen. El diferencial de volumen es $dV = \rho^2 \operatorname{sen}\phi \, d\rho \, d\phi \, d\theta$, con los límites $0 \le \rho \le R$, $0 \le \phi \le \pi$, y $0 \le \theta \le 2\pi$. Además, sabemos que $x^2+y^2+z^2 = \rho^2$:
+	\begin{align*} 
+		\iint_S F \cdot dS &= - \int_0^{2\pi} \int_0^{\pi} \int_0^R 3\rho^2 (\rho^2 \operatorname{sen}\phi) \, d\rho \, d\phi \, d\theta \\
+		&= -3 \left( \int_0^{2\pi} d\theta \right) \left( \int_0^{\pi} \operatorname{sen}\phi \, d\phi \right) \left( \int_0^R \rho^4 \, d\rho \right) \\
+		&= -3 (2\pi) \left[ -\cos\phi \right]_0^\pi \left[ \frac{\rho^5}{5} \right]_0^R = -6\pi (1 - (-1)) \left( \frac{R^5}{5} \right) \\
+		&= -6\pi (2) \left( \frac{R^5}{5} \right) = -\frac{12}{5}\pi R^5
+	\end{align*}
+}
+	
+\noindent \textbf{Ejercicio 15.} Sea $\mathcal{C}$ la curva en el plano $xz$ dada en polares por:
+\[ r(\varphi)=\frac{4\sqrt{3}}{9}(2-\cos(2\varphi)) \quad \text{donde} \quad \frac{\pi}{6}\le\varphi\le\frac{5\pi}{6} \]
+($\varphi$ es el ángulo que forma el radio vector con el semieje positivo de las $z$). Sea $S$ la superficie que se obtiene por revolución de esta curva alrededor del eje $z$. Calcular el flujo a través de $S$ en el sentido "externo" del campo $F(x,y,z)=(x, y, -2z)$.
+\cajasol{
+	Primero, analizamos el campo $F=(x, y, -2z)$. Calculamos su divergencia:
+	\[ \operatorname{div} F = \frac{\partial x}{\partial x} + \frac{\partial y}{\partial y} + \frac{\partial (-2z)}{\partial z} = 1 + 1 - 2 = 0 \]
+	Como la divergencia es nula, el flujo del campo a través de cualquier superficie cerrada envolviendo un volumen es cero (por el Teorema de Gauss). Sin embargo, $S$ es una superficie abierta. 
+	
+	Analicemos los extremos de la curva $\mathcal{C}$ para ver cómo cerrarla.
+	Para $\varphi_1 = \frac{\pi}{6}$: $r = \frac{4\sqrt{3}}{9}(2 - \cos(\frac{\pi}{3})) = \frac{4\sqrt{3}}{9}(2 - \frac{1}{2}) = \frac{2\sqrt{3}}{3}$.
+	Las coordenadas en el plano $xz$ son $z_1 = r\cos(\frac{\pi}{6}) = 1$ y $x_1 = r\operatorname{sen}(\frac{\pi}{6}) = \frac{\sqrt{3}}{3}$.
+	
+	Para $\varphi_2 = \frac{5\pi}{6}$: $r = \frac{4\sqrt{3}}{9}(2 - \cos(\frac{5\pi}{3})) = \frac{4\sqrt{3}}{9}(2 - \frac{1}{2}) = \frac{2\sqrt{3}}{3}$.
+	Las coordenadas son $z_2 = r\cos(\frac{5\pi}{6}) = -1$ y $x_2 = r\operatorname{sen}(\frac{5\pi}{6}) = \frac{\sqrt{3}}{3}$.
+	
+	Al revolucionar la curva, obtenemos una superficie $S$ parecida a un barril abierto en sus bases. Lo cerramos con dos discos $D_1$ (tapa superior en $z=1$) y $D_2$ (tapa inferior en $z=-1$), ambos de radio $R = \frac{\sqrt{3}}{3}$.
+	Las normales salientes al volumen encerrado son $N_1 = (0,0,1)$ para $D_1$ y $N_2 = (0,0,-1)$ para $D_2$.
+	
+	Planteamos Gauss sobre la superficie cerrada $S \cup D_1 \cup D_2$:
+	\[ \iint_{S} F\cdot dS + \iint_{D_1} F\cdot N_1 \, dS + \iint_{D_2} F\cdot N_2 \, dS = \iiint_{V} \operatorname{div}F \, dV = 0 \]
+	
+	Calculamos los flujos por las tapas:
+	Flujo por $D_1$: Evaluamos $F$ en $z=1$, $F = (x,y,-2)$.
+	$\iint_{D_1} F\cdot N_1 \, dS = \iint_{D_1} (x,y,-2)\cdot(0,0,1) \, dS = \iint_{D_1} -2 \, dS = -2 \times \text{Área}(D_1) = -2\pi \left(\frac{\sqrt{3}}{3}\right)^2 = -\frac{2\pi}{3}$.
+	
+	Flujo por $D_2$: Evaluamos $F$ en $z=-1$, $F = (x,y,2)$.
+	$\iint_{D_2} F\cdot N_2 \, dS = \iint_{D_2} (x,y,2)\cdot(0,0,-1) \, dS = \iint_{D_2} -2 \, dS = -2 \times \text{Área}(D_2) = -\frac{2\pi}{3}$.
+	
+	Sustituyendo en la ecuación de Gauss:
+	\[ \iint_{S} F\cdot dS - \frac{2\pi}{3} - \frac{2\pi}{3} = 0 \implies \iint_{S} F\cdot dS = \frac{4\pi}{3} \]
+}
+	
+	\newpage
+	
+\noindent \textbf{Ejercicio 16.} Calcular el flujo del campo $F(x,y,z)=(0,0,a^{2}-x^{2}-y^{2})$ a través de las siguientes secciones oblicuas del cilindro $x^{2}+y^{2}\le a^{2}$:
+\begin{enumerate}[label=(\alph*)]
+	\item Sección oblicua determinada por la intersección del cilindro con el plano de ecuación $y+z=1$, de modo que la normal en el punto $(0,0,1)$ apunte en la dirección $(0, 1, 1)$.
+	\cajasol{
+		Llamemos $S_a$ a esta superficie. Podemos parametrizarla proyectando sobre el disco $D: x^2+y^2 \le a^2$ en el plano $xy$, despejando $z = 1-y$.
+		La parametrización es $r(x,y) = (x, y, 1-y)$. 
+		Calculamos el vector normal fundamental: $r_x \times r_y = (1,0,0) \times (0,1,-1) = (0, 1, 1)$. 
+		Este vector apunta exactamente en la dirección pedida.
+		
+		El flujo es la integral de superficie $\iint_{S_a} F \cdot dS = \iint_D F(r(x,y)) \cdot (r_x \times r_y) \, dx dy$.
+		Evaluamos el campo en la superficie: $F(x,y,1-y) = (0, 0, a^2 - x^2 - y^2)$.
+		\begin{align*} 
+			\iint_{S_a} F \cdot dS &= \iint_D (0, 0, a^2 - x^2 - y^2) \cdot (0, 1, 1) \, dx dy = \iint_D (a^2 - x^2 - y^2) \, dx dy
+		\end{align*}
+		Pasamos a coordenadas polares ($x=\rho\cos\theta, y=\rho\operatorname{sen}\theta$, con jacobiano $\rho$):
+		\begin{align*} 
+			\int_0^{2\pi} \int_0^a (a^2 - \rho^2) \rho \, d\rho \, d\theta &= 2\pi \left[ a^2 \frac{\rho^2}{2} - \frac{\rho^4}{4} \right]_0^a = 2\pi \left( \frac{a^4}{2} - \frac{a^4}{4} \right) = \frac{\pi a^4}{2}
+		\end{align*}
+	}
+	\item Sección oblicua determinada por la intersección del cilindro con el plano de ecuación $z=0$ de modo que la normal en el punto $(0,0,0)$ apunte en la dirección $(0,0,1)$.
+	\cajasol{
+		Llamemos $S_b$ a esta superficie, parametrizada como $r(x,y) = (x,y,0)$ sobre el mismo disco $D: x^2+y^2 \le a^2$.
+		El vector normal es $r_x \times r_y = (0,0,1)$, que también coincide con la orientación exigida.
+		
+		Evaluamos el campo: $F(x,y,0) = (0, 0, a^2 - x^2 - y^2)$.
+		Planteamos el flujo:
+		\begin{align*} 
+			\iint_{S_b} F \cdot dS &= \iint_D (0, 0, a^2 - x^2 - y^2) \cdot (0, 0, 1) \, dx dy = \iint_D (a^2 - x^2 - y^2) \, dx dy
+		\end{align*}
+		Esta integral es idéntica a la resuelta en el inciso anterior. Por lo tanto, el flujo es:
+		\[\iint_{S_b} F \cdot dS = \frac{\pi a^4}{2}\]
+	}
+\end{enumerate}
+¿Depende el flujo del área de la sección?. Justifique.
+\cajasol{
+	No, el flujo no depende del área de la sección oblicua. 
+	
+	Si calculamos la divergencia del campo, obtenemos $\operatorname{div} F = \frac{\partial(0)}{\partial x} + \frac{\partial(0)}{\partial y} + \frac{\partial(a^2-x^2-y^2)}{\partial z} = 0$.
+	Además, sobre las paredes laterales del cilindro ($x^2+y^2=a^2$), el vector normal es paralelo a $(x,y,0)$ y el campo allí es $(0,0,0)$, por lo que $F \cdot N = 0$ (no hay flujo a través de las paredes). 
+	
+	Por el Teorema de Gauss aplicado al volumen comprendido entre dos secciones transversales cualesquiera del cilindro, como la divergencia es cero y el flujo lateral es nulo, el flujo que "entra" por una sección debe ser exactamente igual al que "sale" por la otra. Por ende, el flujo a través de cualquier sección del cilindro será siempre el mismo valor constante $\frac{\pi a^4}{2}$, independientemente de su inclinación o de su área superficial.
+}
+	
+\noindent \textbf{Ejercicio 17.} Dada la función $f(x)=\frac{1}{2}xe^{2-2x}$ podemos describir la superficie de la calabaza de un mate como la superficie de rotación alrededor del eje $z$ de la curva $x=f(z)$, $0\le z\le 1$. Cuando el mate se encuentra cargado de yerba y de agua caliente, el calor es un campo dado por $F(x,y,z)=(x, y, z-\frac{1}{2})$. Calcular el flujo térmico saliente que atraviesa la superficie de la calabaza del mate.
+\cajasol{
+	Llamemos $S$ a la superficie del mate. Evaluemos sus extremos: en $z=0$, el radio es $x = f(0) = 0$ (está cerrado abajo). En $z=1$, el radio es $x = f(1) = \frac{1}{2} e^0 = \frac{1}{2}$ (está abierto arriba).
+	Para aplicar el Teorema de Gauss, debemos cerrar la superficie agregando una "tapa" plana superior $D$ en $z=1$, que consiste en el disco $x^2+y^2 \le (1/2)^2$ con vector normal saliente $N = (0,0,1)$.
+	
+	Sea $V$ el volumen encerrado por $S \cup D$. Calculamos la divergencia del campo térmico:
+	\[ \operatorname{div} F = \frac{\partial x}{\partial x} + \frac{\partial y}{\partial y} + \frac{\partial (z-1/2)}{\partial z} = 1 + 1 + 1 = 3 \]
+	
+	Por el Teorema de Gauss: $\iint_S F \cdot dS + \iint_D F \cdot N \, dS = \iiint_V \operatorname{div} F \, dV = 3 \operatorname{Vol}(V)$.
+	
+	\textbf{1. Cálculo del volumen $V$:}
+	Como es un sólido de revolución respecto a $z$, el volumen se calcula integrando áreas de discos:
+	\[ V = \int_0^1 \pi (f(z))^2 \, dz = \pi \int_0^1 \left(\frac{1}{2}ze^{2-2z}\right)^2 \, dz = \frac{\pi}{4} \int_0^1 z^2 e^{4-4z} \, dz \]
+	Haciendo la sustitución $u = 4-4z$ (con $dz = -\frac{1}{4}du$) e integrando por partes múltiples veces, se obtiene la primitiva. Evaluando en los límites:
+	\[ V = \pi \left( \frac{e^4 - 13}{128} \right) \implies 3\operatorname{Vol}(V) = \frac{3\pi(e^4 - 13)}{128} \]
+	
+	\textbf{2. Flujo a través de la tapa $D$:}
+	Evaluamos el campo en el plano $z=1$: $F = (x, y, 1/2)$. 
+	El flujo es $\iint_D (x, y, 1/2) \cdot (0,0,1) \, dS = \iint_D \frac{1}{2} \, dS = \frac{1}{2} \text{Área}(D)$.
+	Como el radio de la tapa es $1/2$, $\text{Área}(D) = \pi(1/2)^2 = \pi/4$. El flujo por $D$ resulta $\frac{\pi}{8} = \frac{16\pi}{128}$.
+	
+	\textbf{3. Flujo por la superficie del mate $S$:}
+	Despejando de la ecuación general de Gauss, restamos el aporte de la tapa al total:
+	\begin{align*} 
+		\iint_S F \cdot dS &= 3\operatorname{Vol}(V) - \iint_D F \cdot N \, dS = \frac{3\pi(e^4 - 13)}{128} - \frac{16\pi}{128} \\
+		&= \frac{\pi(3e^4 - 39 - 16)}{128} = \frac{\pi(3e^4 - 55)}{128}
+	\end{align*}
+}
+	
+\noindent \textbf{Ejercicio 18.} Sea $S$ la superficie dada por el gráfico de la función $f(x,y)=\frac{1}{1+x^{2}+y^{2}}$ con $\vert{}\vert{}(x,y)\vert{}\vert{}\le 1$ y sea $F(x,y,z)=(\frac{zx}{x^{2}+y^{2}}, \frac{zy}{x^{2}+y^{2}}, 0)$. Hallar $\iint_{S}F\cdot dS$. \\
+\textit{Piense antes de actuar.}
+\cajasol{
+	La advertencia "Piense antes de actuar"  sugiere observar el campo $F$: presenta una singularidad a lo largo del eje $z$ ($x=y=0$). Como la superficie $S$ alcanza su pico en $(0,0,1)$. Sin embargo, al plantear el cálculo directo por definición, la expresión se simplifica.
+	
+	Parametrizamos $S$ como $r(x,y) = (x, y, f(x,y))$ sobre el disco $D: x^2+y^2 \le 1$.
+	Calculamos las derivadas parciales de $f(x,y) = (1+x^2+y^2)^{-1}$:
+	\[f_x = -\frac{2x}{(1+x^2+y^2)^2} \quad \text{y} \quad f_y = -\frac{2y}{(1+x^2+y^2)^2}\]
+	El vector normal es $N = (-f_x, -f_y, 1) = \left( \frac{2x}{(1+x^2+y^2)^2}, \frac{2y}{(1+x^2+y^2)^2}, 1 \right)$.
+	
+	Evaluamos el producto escalar $F \cdot N$, recordando que sobre la superficie $z = \frac{1}{1+x^2+y^2}$:
+	\begin{align*} 
+		F \cdot N &= \left( \frac{zx}{x^2+y^2} \right) \left( \frac{2x}{(1+x^2+y^2)^2} \right) + \left( \frac{zy}{x^2+y^2} \right) \left( \frac{2y}{(1+x^2+y^2)^2} \right) + 0 \\
+		&= \frac{z}{(x^2+y^2)} \frac{2(x^2+y^2)}{(1+x^2+y^2)^2} = \frac{2z}{(1+x^2+y^2)^2} = \frac{2}{(1+x^2+y^2)^3}
+	\end{align*}
+	Notamos que la singularidad en el origen desaparece por completo en el producto escalar. 
+	Integramos sobre el disco $D$ usando coordenadas polares ($x^2+y^2 = \rho^2$, $dx dy = \rho \, d\rho \, d\theta$):
+	\begin{align*} 
+		\iint_S F \cdot dS &= \int_0^{2\pi} \int_0^1 \frac{2\rho}{(1+\rho^2)^3} \, d\rho \, d\theta = 2\pi \int_0^1 2\rho(1+\rho^2)^{-3} \, d\rho
+	\end{align*}
+	Sustituyendo $u = 1+\rho^2$, con $du = 2\rho \, d\rho$:
+	\[\iint_S F \cdot dS = 2\pi \int_1^2 u^{-3} \, du = 2\pi \left[ -\frac{1}{2u^2} \right]_1^2 = 2\pi \left( -\frac{1}{8} - \left(-\frac{1}{2}\right) \right) = 2\pi \left( \frac{3}{8} \right) = \frac{3\pi}{4}\]
+}
+	
+	\newpage
+	
+\noindent \textbf{Ejercicio 19.} Se sabe que $\operatorname{div} \operatorname{rot} G=0$ para todo campo vectorial $G\in C^{1}$. Además, si $F\in C^{1}(\mathbb{R}^{3})$ es tal que $\operatorname{div} F=0$ en $\mathbb{R}^{3}$, existe $G\in C^{2}(\mathbb{R}^{3})$ tal que $F=\operatorname{rot} G$. Por ejemplo, tomar
+\begin{align*}
+	G_{1}(x,y,z) &= \int_{0}^{z}F_{2}(x,y,t)dt - \int_{0}^{y}F_{3}(x,t,0)dt, \\
+	G_{2}(x,y,z) &= -\int_{0}^{z}F_{1}(x,y,t)dt, \\
+	G_{3}(x,y,z) &= 0.
+\end{align*}
+Considerar el campo gravitatorio $F=-GmM\frac{r}{||r||^{3}}$. Verificar que $\operatorname{div} F=0$. ¿Existe un campo $G\in C^{2}(\mathbb{R}^{3}\setminus\{0\})$ tal que $F = \operatorname{rot} G$? \\
+\textit{Sugerencia: Ver Ejercicio 12.}
+\cajasol{
+	Primero verificamos que $\operatorname{div} F = 0$ en $\mathbb{R}^3 \setminus \{0\}$. Siendo $k = -GmM$, tenemos $F_1 = kx(x^2+y^2+z^2)^{-3/2}$. Derivamos respecto a $x$:
+	\[ \frac{\partial F_1}{\partial x} = k \left( \frac{1 \cdot (x^2+y^2+z^2)^{3/2} - x \cdot \frac{3}{2}(x^2+y^2+z^2)^{1/2}(2x)}{(x^2+y^2+z^2)^3} \right) = k \frac{||r||^2 - 3x^2}{||r||^5} \]
+	Sumando las tres derivadas análogas para $y$ y $z$:
+	\[ \operatorname{div} F = k \frac{(||r||^2 - 3x^2) + (||r||^2 - 3y^2) + (||r||^2 - 3z^2)}{||r||^5} = k \frac{3||r||^2 - 3(x^2+y^2+z^2)}{||r||^5} = 0 \]
+	
+	Para responder si existe un potencial vector $G$, razonemos por el absurdo: supongamos que sí existe $G \in C^2$ tal que $F = \operatorname{rot} G$.
+	Tomemos la superficie $S$ de una esfera cerrada centrada en el origen orientada hacia afuera. Por Stokes sobre superficies cerradas (demostrado previamente en la práctica), el flujo de cualquier rotor a través de una superficie cerrada debe ser nulo: $\iint_S (\operatorname{rot} G) \cdot dS = 0$.
+	
+	Sin embargo, calculemos directamente el flujo de $F$ a través de esta esfera $S$ de radio 1 (donde $||r||=1$ y la normal unitaria saliente es $n=r$):
+	\[ \iint_S F \cdot dS = \iint_S \left( -GmM \frac{r}{1^3} \right) \cdot r \, dS = -GmM \iint_S (r \cdot r) \, dS = -GmM \iint_S 1 \, dS \]
+	Como el área de la esfera de radio 1 es $4\pi$, el flujo es $-4\pi GmM \ne 0$.
+	
+	Llegamos a la contradicción $0 = -4\pi GmM$. 
+	Por lo tanto, \textbf{no existe} tal campo $G$. 
+}
+	
+\noindent \textbf{Ejercicio 20.} ¿Es cada uno de los siguientes campos vectoriales el rotor de algún otro campo vectorial? De ser así, hallar el campo vectorial.
+\begin{enumerate}[label=(\alph*)]
+	\item $F=(x,y,z)$.
+	\cajasol{
+		Para que un campo vectorial $F$ sea el rotor de otro campo $G$ (es decir, $F = \nabla \times G$), una condición necesaria es que su divergencia sea nula, ya que $\operatorname{div}(\operatorname{rot} G) = 0$ siempre.
+		Calculamos la divergencia de $F$:
+		\[ \operatorname{div} F = \frac{\partial x}{\partial x} + \frac{\partial y}{\partial y} + \frac{\partial z}{\partial z} = 1 + 1 + 1 = 3 \]
+		Como $\operatorname{div} F \ne 0$, concluimos que \textbf{no existe} ningún campo vectorial $G$ tal que $F = \operatorname{rot} G$.
+	}
+	\item $F=(x^{2}+1, x-2xy, y)$.
+	\cajasol{
+		Verificamos primero la divergencia del campo:
+		\[ \operatorname{div} F = \frac{\partial(x^2+1)}{\partial x} + \frac{\partial(x-2xy)}{\partial y} + \frac{\partial y}{\partial z} = 2x - 2x + 0 = 0 \]
+		Como $\operatorname{div} F = 0$ y el dominio es $\mathbb{R}^3$ (todo el espacio, sin "agujeros"), por el teorema sabemos que \textbf{sí existe} un campo $G$ tal que $F = \operatorname{rot} G$.
+		
+		Para hallar $G=(G_1, G_2, G_3)$, podemos usar la fórmula del Ejercicio 19:
+		\begin{align*}
+			G_{1}(x,y,z) &= \int_{0}^{z}(x-2xy)\,dt - \int_{0}^{y} 0\,dt = (x-2xy)z - 0 \\
+			G_{2}(x,y,z) &= -\int_{0}^{z}(x^2+1)\,dt = -(x^2+1)z \\
+			G_{3}(x,y,z) &= 0
+		\end{align*}
+		Revisando, nos falta considerar el aporte de $F_3(x,t,0) = t$ en $G_1$:
+		\[ G_{1}(x,y,z) = \int_{0}^{z}(x-2xy)\,dt - \int_{0}^{y} t\,dt = (x-2xy)z - \frac{y^2}{2} \]
+		El campo vectorial buscado es entonces:
+		\[ G(x,y,z) = \left( xz - 2xyz - \frac{y^2}{2}, -x^2z - z, 0 \right) \]
+	}
+\end{enumerate}
+	
+\noindent \textbf{Ejercicio 21.} Para cada $R>0$ sea $S_{R}=\{(x,y,z) / x^{2}+y^{2}+z^{2}=R^{2}, z\ge 0\}$ orientada con la normal que apunta hacia arriba, y sea el campo
+\[ F(x,y,z)=(xz-x\cos z, -yz+y\cos z, 4-x^{2}-y^{2}) \]
+Determinar $R$ de modo que el flujo del campo $F$ a través de $S_{R}$ sea máximo.
+\cajasol{
+	Sea $D_R$ el disco plano en la base del hemisferio ($x^2+y^2 \le R^2$, $z=0$). Cerramos la superficie con $D_R$ orientada hacia abajo (normal $N=(0,0,-1)$) y llamamos $V_R$ al volumen del hemisferio encerrado.
+	
+	Calculamos la divergencia del campo $F$:
+	\[ \operatorname{div} F = (z - \cos z) + (-z + \cos z) + 0 = 0 \]
+	
+	Por el Teorema de Gauss:
+	\[ \iint_{S_R} F \cdot dS + \iint_{D_R} F \cdot (0,0,-1) \, dS = \iiint_{V_R} \operatorname{div} F \, dV = 0 \]
+	
+	Despejando el flujo a través de $S_R$ (que tiene normal hacia arriba):
+	\[ \iint_{S_R} F \cdot dS = - \iint_{D_R} F \cdot (0,0,-1) \, dS = \iint_{D_R} F \cdot (0,0,1) \, dS \]
+	
+	Evaluamos $F$ sobre el disco $D_R$ (donde $z=0$):
+	$F(x,y,0) = (-x\cos 0, y\cos 0, 4-x^2-y^2) = (-x, y, 4-x^2-y^2)$.
+	El producto escalar con la normal $(0,0,1)$ nos da únicamente la tercera componente:
+	\[ \iint_{S_R} F \cdot dS = \iint_{D_R} (4 - x^2 - y^2) \, dx dy \]
+	
+	Para que esta integral doble sobre el disco de radio $R$ alcance su valor \textbf{máximo}, debemos integrar la función en toda la región donde el integrando sea positivo (ya que agregar áreas donde es negativo restaría valor al flujo total).
+	El integrando es positivo cuando:
+	\[ 4 - x^2 - y^2 \ge 0 \implies x^2 + y^2 \le 4 = 2^2 \]
+	
+	Esta región es exactamente un disco de radio 2. Por lo tanto, el flujo se maximiza si integramos exactamente sobre ese dominio, es decir, eligiendo \textbf{$R = 2$}.
+	
+}
+	
+	\newpage
+	
+\noindent \textbf{Ejercicio 22.} Sea $V=(x,y,xy-z)$ el campo de velocidades de un fluido. Decidir si el fluido se está expandiendo.
+\cajasol{
+	Para determinar si un fluido se está expandiendo, comprimiendo o si es incompresible, debemos analizar la divergencia de su campo de velocidades $V$.
+	
+	La interpretación física de la divergencia nos dice que:
+	Si $\operatorname{div} V > 0$, el fluido se expande.
+	Si $\operatorname{div} V < 0$, el fluido se comprime.
+	Si $\operatorname{div} V = 0$, el fluido es incompresible.
+	
+	Calculamos la divergencia del campo $V = (x, y, xy-z)$:
+	\[\operatorname{div} V = \frac{\partial x}{\partial x} + \frac{\partial y}{\partial y} + \frac{\partial (xy-z)}{\partial z} = 1 + 1 + (-1) = 1\]
+	
+	Como $\operatorname{div} V = 1$, la cual es estrictamente mayor que cero en todo punto del espacio, concluimos que \textbf{sí, el fluido se está expandiendo} (y lo hace con una tasa de expansión constante).
+}
+	
+\noindent \textbf{Ejercicio 23.} Calcular la cantidad de calor total que se pierde entre los tiempos $t=0$ y $t=1$ a través de las paredes, el techo y el suelo de una habitación que ocupa la región $[0,4]\times[0,5]\times[0,3]$ del espacio si la temperatura ambiente en el punto $(x, y, z)$ en el instante $t$ es $T=30-t-x^{2}-y^{2}-z^{2}$. (Suponemos que no hay fuentes ni pérdidas de calor dentro de la habitación y que la conductividad térmica del ambiente es 1). \\
+\textit{Sugerencia: Utilizar la Ley de Fourier que dice que el flujo por unidad de tiempo de la densidad de calor es $-K\nabla T$ donde $K$ es la conductividad térmica.}
+\cajasol{
+	Primero, calculamos el campo de densidad de flujo de calor $F$ usando la Ley de Fourier. Sabiendo que la conductividad térmica es $K=1$:
+	\[ F = -K\nabla T = -1 \cdot \left( \frac{\partial T}{\partial x}, \frac{\partial T}{\partial y}, \frac{\partial T}{\partial z} \right) \]
+	\[ F = -1 \cdot (-2x, -2y, -2z) = (2x, 2y, 2z) \]
+	Notemos que la derivada parcial respecto de las variables espaciales anula los términos de $30$ y $-t$.
+	
+	El flujo térmico saliente por unidad de tiempo a través de la frontera $S$ de la habitación $\Omega$ es $\iint_S F \cdot dS$. 
+	Como la habitación es una región cerrada (un paralelepípedo), aplicamos el Teorema de Gauss:
+	\[ \text{Flujo}(t) = \iint_S F \cdot dS = \iiint_\Omega \operatorname{div} F \, dV \]
+	
+	Calculamos la divergencia del campo $F$:
+	\[ \operatorname{div} F = \frac{\partial (2x)}{\partial x} + \frac{\partial (2y)}{\partial y} + \frac{\partial (2z)}{\partial z} = 2 + 2 + 2 = 6 \]
+	
+	La integral de volumen se simplifica, ya que el integrando es constante:
+	\[ \text{Flujo}(t) = \iiint_\Omega 6 \, dV = 6 \operatorname{Vol}(\Omega) \]
+	El volumen de la habitación es base $\times$ profundidad $\times$ altura:
+	\[ \operatorname{Vol}(\Omega) = (4 - 0) \times (5 - 0) \times (3 - 0) = 4 \times 5 \times 3 = 60 \]
+	
+	Por lo tanto, la cantidad de calor que sale por unidad de tiempo (tasa de pérdida de calor) es constante:
+	\[ \text{Flujo}(t) = 6 \times 60 = 360 \]
+	
+	Finalmente, la cantidad de calor \textit{total} perdida entre $t=0$ y $t=1$ se obtiene integrando el flujo respecto al tiempo:
+	\[ Q_{\text{total}} = \int_0^1 \text{Flujo}(t) \, dt = \int_0^1 360 \, dt = 360 \left[ t \right]_0^1 = 360 \times (1-0) = 360 \]
+}
+	
+\noindent \textbf{Ejercicio 24.} Sea $\rho$ la densidad de masa de un fluido que se mueve según un campo de velocidades $V$. Ver que la razón de variación en el tiempo de la densidad de masa $\rho$ es $\rho_{t}=-\operatorname{div}(\rho V)$.
+\cajasol{
+	Consideremos un volumen de control arbitrario $\Omega$ fijo en el espacio, delimitado por una superficie cerrada $\partial\Omega$ con normal exterior $n$. 
+	La masa total $M$ contenida en $\Omega$ en el instante $t$ es:
+	\[M(t) = \iiint_{\Omega} \rho(x,y,z,t) \, dV\]
+	
+	Por el principio de conservación de la masa, la razón de variación temporal de la masa dentro de $\Omega$ debe ser igual al flujo neto de masa que entra a través de la frontera $\partial\Omega$. El campo de flujo de masa es $\rho V$.
+	\[\frac{dM}{dt} = - \iint_{\partial\Omega} (\rho V) \cdot n \, dS\]
+	
+	Como el volumen $\Omega$ es fijo, podemos introducir la derivada temporal dentro de la integral de volumen:
+	\[\iiint_{\Omega} \frac{\partial\rho}{\partial t} \, dV = - \iint_{\partial\Omega} (\rho V) \cdot n \, dS\]
+	
+	Aplicando el Teorema de Gauss al lado derecho para transformar la integral de superficie en una de volumen:
+	\[\iint_{\partial\Omega} (\rho V) \cdot n \, dS = \iiint_{\Omega} \operatorname{div}(\rho V) \, dV\]
+	
+	Igualando ambas expresiones e integrando todo en un mismo lado:
+	\[\iiint_{\Omega} \left( \frac{\partial\rho}{\partial t} + \operatorname{div}(\rho V) \right) \, dV = 0\]
+	
+	Dado que esta igualdad debe cumplirse para \textbf{cualquier} volumen arbitrario $\Omega$, el integrando debe ser idénticamente nulo en todo punto del espacio. Por lo tanto:
+	\[\frac{\partial\rho}{\partial t} + \operatorname{div}(\rho V) = 0 \implies \rho_t = -\operatorname{div}(\rho V)\]
+
+}
+	
+\noindent \textbf{Ejercicio 25.} Usando el teorema de Gauss, probar las Identidades de Green:
+\begin{align*}
+	\int_{\partial\Omega}f\nabla g\cdot n\, dS &= \int_{\Omega}(f\Delta g+\nabla f\cdot\nabla g)dx\, dy\, dz, \\
+	\int_{\partial\Omega}(f\nabla g-g\nabla f)\cdot n\, dS &= \int_{\Omega}(f\Delta g-g\Delta f)dx\, dy\, dz.
+\end{align*}
+Aquí $n$ es la normal exterior al dominio $\Omega\subset\mathbb{R}^{3}$, $f,g$ son de clase $C^{2}(\Omega)\cap C^{1}(\overline{\Omega})$ y, para una función $u\in C^{2}(\Omega)$, $\Delta u=u_{xx}+u_{yy}+u_{zz}$.
+\cajasol{
+	\textbf{1. Primera Identidad de Green:}
+	Definimos el campo vectorial $F = f\nabla g$. 
+	Calculamos la divergencia de $F$ utilizando la regla del producto para divergencias ($\operatorname{div}(\phi A) = \nabla\phi \cdot A + \phi\operatorname{div}A$):
+	\[ \operatorname{div}(f\nabla g) = \nabla f \cdot \nabla g + f \operatorname{div}(\nabla g) \]
+	Sabemos que el operador divergencia aplicado al gradiente de una función escalar es el operador laplaciano: $\operatorname{div}(\nabla g) = \Delta g$.
+	Entonces:
+	\[ \operatorname{div}(f\nabla g) = \nabla f \cdot \nabla g + f\Delta g \]
+	Aplicando el Teorema de Gauss al campo $F = f\nabla g$ sobre el dominio $\Omega$:
+	\[ \iint_{\partial\Omega} (f\nabla g) \cdot n \, dS = \iiint_{\Omega} \operatorname{div}(f\nabla g) \, dV \]
+	Sustituyendo la divergencia calculada obtenemos la primera identidad:
+	\[ \iint_{\partial\Omega} f\nabla g \cdot n \, dS = \iiint_{\Omega} (f\Delta g + \nabla f \cdot \nabla g) \, dx dy dz \]
+	
+	\textbf{2. Segunda Identidad de Green:}
+	Planteamos la primera identidad de Green pero intercambiando los roles de $f$ y $g$ (lo cual es válido ya que ambas funciones cumplen las mismas hipótesis de regularidad):
+	\[ \iint_{\partial\Omega} g\nabla f \cdot n \, dS = \iiint_{\Omega} (g\Delta f + \nabla g \cdot \nabla f) \, dx dy dz \]
+	Ahora, restamos esta nueva ecuación de la primera identidad original:
+	\begin{align*} 
+		\iint_{\partial\Omega} (f\nabla g \cdot n) \, dS - \iint_{\partial\Omega} (g\nabla f \cdot n) \, dS &= \iiint_{\Omega} (f\Delta g + \nabla f \cdot \nabla g) \, dV - \iiint_{\Omega} (g\Delta f + \nabla g \cdot \nabla f) \, dV 
+	\end{align*}
+	Agrupando los términos y notando que el producto escalar es conmutativo ($\nabla f \cdot \nabla g = \nabla g \cdot \nabla f$), esos términos se cancelan en el lado derecho, resultando en la segunda identidad:
+	\[ \iint_{\partial\Omega} (f\nabla g - g\nabla f) \cdot n \, dS = \iiint_{\Omega} (f\Delta g - g\Delta f) \, dx dy dz \]
+}
+	
+	\newpage
+	
+\noindent \textbf{Ejercicio 26.} Decimos que $\lambda\in\mathbb{R}$ es un autovalor del operador $\Delta$ definido en el Ejercicio 25 en $\Omega$ si existe una función $f\in C^{2}(\Omega)\cap C^{1}(\overline{\Omega})$ con $f=0$ en $\partial\Omega$, $f\not\equiv 0$ tal que $\Delta f=\lambda f$ en $\Omega$. En ese caso decimos que $f$ es una autofunción asociada a $\lambda$. \\
+Utilizando las identidades de Green del Ejercicio 25, mostrar que si $\lambda\ne\mu$ son autovalores de $\Delta$ en $\Omega$ y $f, g$ autofunciones asociadas a $\lambda$ y $\mu$ respectivamente se tiene
+\[ \iiint_{\Omega}f\, g\, dV=0 \]
+\cajasol{
+	Por hipótesis, $f$ y $g$ son autofunciones asociadas a los autovalores $\lambda$ y $\mu$, respectivamente. Esto significa que en el interior del dominio $\Omega$:
+	\[ \Delta f = \lambda f \quad \text{y} \quad \Delta g = \mu g \]
+	Además, en la frontera $\partial\Omega$ ambas funciones se anulan:
+	\[ f = 0 \quad \text{y} \quad g = 0 \quad \text{sobre } \partial\Omega \]
+	
+	Utilizamos la Segunda Identidad de Green demostrada en el Ejercicio 25:
+	\[ \iint_{\partial\Omega} (f\nabla g - g\nabla f) \cdot n \, dS = \iiint_{\Omega} (f\Delta g - g\Delta f) \, dV \]
+	
+	Evaluamos el lado izquierdo de la igualdad. Como $f=0$ y $g=0$ en $\partial\Omega$, el integrando se anula completamente:
+	\[ \iint_{\partial\Omega} (0 \cdot \nabla g - 0 \cdot \nabla f) \cdot n \, dS = 0 \]
+	
+	Por lo tanto, la integral de volumen del lado derecho también debe ser cero. Reemplazamos $\Delta f$ y $\Delta g$ por sus respectivas expresiones con autovalores:
+	\[ 0 = \iiint_{\Omega} (f(\mu g) - g(\lambda f)) \, dV = \iiint_{\Omega} (\mu fg - \lambda fg) \, dV = \iiint_{\Omega} (\mu - \lambda)fg \, dV \]
+	
+	Como $\lambda$ y $\mu$ son constantes, podemos sacar el factor común fuera de la integral:
+	\[ (\mu - \lambda) \iiint_{\Omega} fg \, dV = 0 \]
+	
+	Dado que $\lambda \ne \mu$ por hipótesis, entonces $(\mu - \lambda) \ne 0$. Dividiendo ambos lados por esta constante no nula, concluimos que:
+	\[ \iiint_{\Omega} fg \, dV = 0 \]
+
+}
+	
+\noindent \textbf{Ejercicio 27.} Sea $B$ una bola en $\mathbb{R}^{3}$. Ver que no puede haber una función $f\not\equiv 0$, $f\in C^{2}(B)\cap C^{1}(\overline{B})$ que satisfaga
+\[ \Delta f=0 \text{ en } B, \qquad f=0 \text{ en } \partial B. \]
+\textit{Sugerencia: Utilizar las identidades de Green del Ejercicio 25 para deducir que $\nabla f=0$ en $B$. A continuación utilizar el Ejercicio 9 para deducir que $f$ es constante.}
+\cajasol{
+	Para demostrar que no existe tal función, razonando por el absurdo, planteamos la Primera Identidad de Green eligiendo tanto la función $f$ como la función $g$ iguales a nuestra función $f$ del enunciado:
+	\[ \iint_{\partial B} f\nabla f \cdot n \, dS = \iiint_{B} (f\Delta f + \nabla f \cdot \nabla f) \, dV \]
+	
+	Por hipótesis, sabemos que:
+	1) $f = 0$ sobre la frontera $\partial B$.
+	2) $\Delta f = 0$ en el interior de la bola $B$.
+	
+	Reemplazando estos datos en la identidad:
+	El lado izquierdo se anula porque $f=0$ en $\partial B$:
+	\[ \iint_{\partial B} 0 \cdot \nabla f \cdot n \, dS = 0 \]
+	
+	El lado derecho queda:
+	\[ \iiint_{B} (f \cdot 0 + ||\nabla f||^2) \, dV = \iiint_{B} ||\nabla f||^2 \, dV \]
+	
+	Igualando ambas partes obtenemos:
+	\[ \iiint_{B} ||\nabla f||^2 \, dV = 0 \]
+	
+	Dado que $||\nabla f||^2 \ge 0$ en todo punto y la función es continua, la única forma de que su integral definida sobre un dominio sea nula es que el integrando sea idénticamente nulo.
+	Por lo tanto:
+	\[ ||\nabla f||^2 = 0 \implies \nabla f = 0 \quad \text{en todo } B \]
+	
+	Como vimos en el Ejercicio 9, si el gradiente de una función es nulo en todo punto de un dominio conexo como una bola $B$, entonces la función debe ser constante en dicho dominio: $f(x,y,z) = C$.
+	
+	Como $f$ es continua hasta el borde $\overline{B}$ y sabemos que en la frontera $f=0$, por continuidad la constante debe ser $C=0$. 
+	Es decir, $f \equiv 0$ en todo $\overline{B}$. 
+	
+	Esto contradice la hipótesis inicial de que $f \not\equiv 0$. Por lo tanto, queda demostrado que no puede existir una función no nula bajo esas condiciones.
+}
+	
+\noindent \textbf{Ejercicio 28.} Se sabe que la circulación de un campo eléctrico genera una variación en el flujo del campo magnético de modo que se tiene la relación
+\[ \int_{\mathcal{C}}E\cdot ds = -\frac{1}{c}\frac{d}{dt}\iint_{S}H\cdot dS \qquad \text{(Ley de Faraday)} \]
+donde $c$ es una constante positiva, $S$ es una superficie orientada cuyo borde es $\mathcal{C}$ y la circulación se da en el sentido de recorrido de $\mathcal{C}$ inducido por la normal elegida sobre $S$. Deducir que se tiene
+\[ H_{t}+c\operatorname{rot} E=0. \]
+\textit{Sugerencia: Considerar un disco de radio $\rho$ en un plano como superficie $S$. Aplicar el Teorema de Stokes, dividir por el área del disco, hacer $\rho$ tender a 0 y posteriormente utilizar que el plano era arbitrario.}
+\cajasol{
+	Aplicamos el Teorema de Stokes al miembro izquierdo de la Ley de Faraday para transformar la integral de línea en una integral de superficie:
+	\[ \int_{\mathcal{C}} E \cdot ds = \iint_S (\operatorname{rot} E) \cdot dS \]
+	
+	Suponiendo que la superficie $S$ es fija en el espacio, podemos introducir la derivada temporal dentro de la integral en el miembro derecho como una derivada parcial respecto de $t$:
+	\[ -\frac{1}{c}\frac{d}{dt}\iint_{S}H\cdot dS = \iint_S \left( -\frac{1}{c} \frac{\partial H}{\partial t} \right) \cdot dS = \iint_S \left( -\frac{1}{c} H_t \right) \cdot dS \]
+	
+	Igualando ambas expresiones y agrupando todos los términos bajo la misma integral de superficie:
+	\[ \iint_S (\operatorname{rot} E) \cdot dS = \iint_S \left( -\frac{1}{c} H_t \right) \cdot dS \implies \iint_S \left( \operatorname{rot} E + \frac{1}{c} H_t \right) \cdot dS = 0 \]
+	
+	Multiplicando toda la ecuación por la constante $c$:
+	\[ \iint_S (c\operatorname{rot} E + H_t) \cdot dS = 0 \]
+	
+	Siguiendo la sugerencia, tomamos como superficie $S$ un pequeño disco de radio $\rho$ centrado en un punto arbitrario $P$ con un vector normal unitario y constante $n$. 
+	Dividimos la integral por el área del disco ($\pi\rho^2$) y tomamos el límite cuando el radio $\rho$ tiende a $0$. 
+	Por el Teorema del Valor Medio para integrales, este límite nos da exactamente el valor del integrando evaluado en el punto $P$:
+	\[ \lim_{\rho \to 0} \frac{1}{\pi\rho^2} \iint_S (H_t + c\operatorname{rot} E) \cdot n \, dS = (H_t(P) + c\operatorname{rot} E(P)) \cdot n = 0 \]
+	
+	Como el plano (y por lo tanto el vector normal $n$) fue elegido de forma completamente arbitraria, el producto escalar da cero para cualquier dirección espacial. La única forma de que un vector sea ortogonal a todas las direcciones posibles es que sea el vector nulo.
+	Al ser el punto $P$ también arbitrario, concluimos que en todo el espacio debe cumplirse:
+	\[ H_t + c\operatorname{rot} E = 0 \]
+}
+	
+\end{document}

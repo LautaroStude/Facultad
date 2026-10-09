@@ -1,0 +1,477 @@
+% !TEX TS-program = pdflatex
+\documentclass[11pt, a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[spanish,es-nodecimaldot]{babel}
+\usepackage[a4paper, margin=2cm]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{enumitem}
+\usepackage{calc}
+\usepackage{xcolor}
+
+% Definición del comando para crear las cajas de escritura vacías
+\newcommand{\caja}[1]{%
+	\par\vspace{0.2cm}\noindent
+	\fbox{\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+			\vspace{0.1cm}\hspace{0.1cm}\textcolor{gray}{\small\textsl{Resolución:}}
+			\vspace{#1}
+	\end{minipage}}%
+	\par\vspace{0.3cm}
+}
+
+% Definición para cajas con soluciones desarrolladas (incluida por si la necesitas luego)
+\newcommand{\cajasol}[1]{%
+	\par\vspace{0.2cm}\noindent
+	\fbox{\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+			\vspace{0.1cm}\hspace{0.1cm}\textcolor{blue}{\small\textsl{Resolución:}}
+			
+			\vspace{0.1cm}
+			\hspace{0.1cm}\parbox{\dimexpr\linewidth-0.4cm\relax}{#1}
+			\vspace{0.2cm}
+	\end{minipage}}%
+	\par\vspace{0.3cm}
+}
+
+\begin{document}
+	
+	\begin{center}
+		\textsc{Universidad de Buenos Aires} \hfill \textsc{Facultad de Ciencias Exactas y Naturales} \\
+		\vspace{0.15cm}
+		\hrule
+		\vspace{0.4cm}
+		\textbf{\Large ANÁLISIS II -- ANÁLISIS MATEMÁTICO II -- MATEMÁTICA 3} \\
+		\vspace{0.2cm}
+		\textsl{Segundo Cuatrimestre 2026} \\
+		\vspace{0.4cm}
+		\textbf{\Large Práctica 3: Teorema de Green. Lautaro Stude}
+		\vspace{0.25cm}
+		\hrule
+	\end{center}
+	
+	\vspace{0.5cm}
+	
+\noindent \textbf{Ejercicio 1.} Verificar el Teorema de Green para el disco $D$ con centro $(0,0)$ y radio $R$ y las siguientes funciones:
+\begin{enumerate}[label=(\alph*)]
+	\item $P(x,y)=xy^{2}$, $Q(x,y)=-yx^{2}$.
+	\cajasol{
+		Sea $D = \{(x,y) \in \mathbb{R}^2 : x^2+y^2 \le R^2\}$. El Teorema de Green establece que $\oint_{\partial D} P \, dx + Q \, dy = \iint_D (Q_x - P_y) \, dA$.
+		
+		Calculamos las derivadas parciales para $P(x,y)=xy^2$ y $Q(x,y)=-yx^2$: 
+		$Q_x = -2xy$, $P_y = 2xy \implies Q_x - P_y = -4xy$.
+		
+		\textbf{Integral doble:}
+		\[ \iint_D -4xy \, dA = 0 \]
+		(El resultado es nulo por la simetría impar del integrando respecto a ambos ejes sobre un dominio simétrico).
+		
+		\textbf{Integral de línea:} Parametrizamos $\partial D$ con $\sigma(t) = (R\cos t, R\operatorname{sen} t)$, $t \in [0, 2\pi]$.
+		\begin{align*} 
+			\oint_{\partial D} xy^2 \, dx - yx^2 \, dy &= \int_0^{2\pi} \left[ (R\cos t)(R^2\operatorname{sen}^2 t)(-R\operatorname{sen} t) - (R\operatorname{sen} t)(R^2\cos^2 t)(R\cos t) \right] dt \\
+			&= \int_0^{2\pi} -R^4(\cos t \operatorname{sen}^3 t + \operatorname{sen} t \cos^3 t) \, dt \\
+			&= -R^4 \int_0^{2\pi} \operatorname{sen} t \cos t (\operatorname{sen}^2 t + \cos^2 t) \, dt \\
+			&= -R^4 \left[ \frac{\operatorname{sen}^2 t}{2} \right]_0^{2\pi} = 0 
+		\end{align*}
+		Ambos lados de la igualdad coinciden ($0=0$), verificando así el teorema.
+	}
+	
+	\item $P(x,y)=2y$, $Q(x,y)=x$.
+	\cajasol{
+		Derivadas parciales para $P(x,y)=2y$ y $Q(x,y)=x$: 
+		$Q_x = 1$, $P_y = 2 \implies Q_x - P_y = -1$.
+		
+		\textbf{Integral doble:} 
+		\[ \iint_D (-1) \, dA = - \text{Área}(D) = -\pi R^2 \]
+		
+		\textbf{Integral de línea:} Sobre la misma parametrización $\sigma(t) = (R\cos t, R\operatorname{sen} t)$, $t \in [0, 2\pi]$.
+		\begin{align*} 
+			\oint_{\partial D} 2y \, dx + x \, dy &= \int_0^{2\pi} \left[ 2(R\operatorname{sen} t)(-R\operatorname{sen} t) + (R\cos t)(R\cos t) \right] dt \\
+			&= \int_0^{2\pi} (-2R^2\operatorname{sen}^2 t + R^2\cos^2 t) \, dt 
+		\end{align*}
+		Sabiendo que $\int_0^{2\pi} \operatorname{sen}^2 t \, dt = \int_0^{2\pi} \cos^2 t \, dt = \pi$:
+		\[ = -2R^2(\pi) + R^2(\pi) = -\pi R^2 \]
+		Ambos lados de la igualdad coinciden ($-\pi R^2 = -\pi R^2$), verificando el teorema.
+	}
+\end{enumerate}
+	
+\noindent \textbf{Ejercicio 2.} Verificar el Teorema de Green y calcular $\int_{\mathcal{C}} y^{2}dx+x \, dy$, siendo $\mathcal{C}$ la curva recorrida en sentido positivo:
+\begin{enumerate}[label=(\alph*)]
+	\item Cuadrado con vértices $(0,0)$, $(2,0)$, $(2, 2)$, $(0,2)$.
+	\cajasol{
+		Sean $P=y^2$, $Q=x \implies Q_x - P_y = 1 - 2y$. La región es $D = [0,2] \times [0,2]$.
+		
+		\textbf{Integral doble:} 
+		\[ \iint_D (1-2y) \, dA = \int_0^2 \int_0^2 (1-2y) \, dy \, dx = \int_0^2 \left[ y - y^2 \right]_0^2 \, dx = \int_0^2 (2 - 4) \, dx = -2(2) = -4 \]
+		
+		\textbf{Integral de línea} calculada por tramos (sentido antihorario):
+		\begin{itemize}
+			\item $\mathcal{C}_1$ (inferior): $y=0, dy=0, x \in [0,2] \implies \int_0^2 0 \, dx = 0$
+			\item $\mathcal{C}_2$ (derecho): $x=2, dx=0, y \in [0,2] \implies \int_0^2 2 \, dy = 4$
+			\item $\mathcal{C}_3$ (superior): $y=2, dy=0, x \in [2,0] \implies \int_2^0 2^2 \, dx = -8$
+			\item $\mathcal{C}_4$ (izquierdo): $x=0, dx=0, y \in [2,0] \implies \int_2^0 0 \, dy = 0$
+		\end{itemize}
+		Suma total: $0 + 4 - 8 + 0 = -4$. Se verifica el teorema.
+	}
+	
+	\item Elipse dada por $\frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}=1$.
+	\cajasol{
+		\textbf{Integral doble:} 
+		\[ \iint_D (1-2y) \, dA = \iint_D 1 \, dA - 2\iint_D y \, dA \]
+		Por simetría de la elipse respecto al eje $x$, $\iint_D y \, dA = 0$. Luego, $\iint_D 1 \, dA = \text{Área}(D) = \pi ab$.
+		
+		\textbf{Integral de línea:} Parametrizamos con $\sigma(t) = (a\cos t, b\operatorname{sen} t)$, $t \in [0,2\pi]$.
+		\begin{align*}
+			\oint_{\mathcal{C}} y^2 \, dx + x \, dy &= \int_0^{2\pi} \left[ b^2\operatorname{sen}^2 t (-a\operatorname{sen} t) + a\cos t (b\cos t) \right] dt \\
+			&= \int_0^{2\pi} (-ab^2\operatorname{sen}^3 t + ab\cos^2 t) \, dt 
+		\end{align*}
+		Como $\int_0^{2\pi} \operatorname{sen}^3 t \, dt = 0$ y $\int_0^{2\pi} \cos^2 t \, dt = \pi$, el resultado es $\pi ab$. Se verifica el teorema.
+	}
+	
+	\item $\mathcal{C}=\mathcal{C}_{1}\cup\mathcal{C}_{2}$, donde $\mathcal{C}_{1}$: $y=x$, $x\in[0,1]$, $\mathcal{C}_{2}$: $y=x^{2}$, $x\in[0,1]$.
+	\cajasol{
+		La región $D$ está dada por: $0 \le x \le 1$, $x^2 \le y \le x$. 
+		
+		\textbf{Integral doble:}
+		\begin{align*}
+			\iint_D (1-2y) \, dA &= \int_0^1 \int_{x^2}^x (1-2y) \, dy \, dx = \int_0^1 \left[ y - y^2 \right]_{x^2}^x \, dx \\
+			&= \int_0^1 (x-x^2 - x^2 + x^4) \, dx = \int_0^1 (x - 2x^2 + x^4) \, dx \\
+			&= \frac{1}{2} - \frac{2}{3} + \frac{1}{5} = \frac{15 - 20 + 6}{30} = \frac{1}{30} 
+		\end{align*}
+		
+		\textbf{Integral de línea} en recorrido positivo (por $\mathcal{C}_2$ y luego en sentido inverso por $\mathcal{C}_1$):
+		\begin{itemize}
+			\item Por $y=x^2$ de $x=0$ a $x=1$: $\int_0^1 \left[ (x^2)^2 \, dx + x (2x \, dx) \right] = \int_0^1 (x^4 + 2x^2) \, dx = \frac{1}{5} + \frac{2}{3} = \frac{13}{15}$
+			\item Por $y=x$ de $x=1$ a $x=0$: $\int_1^0 (x^2 \, dx + x \, dx) = \int_1^0 (x^2 + x) \, dx = -\left(\frac{1}{3} + \frac{1}{2}\right) = -\frac{5}{6}$
+		\end{itemize}
+		Suma total: $\frac{13}{15} - \frac{5}{6} = \frac{26 - 25}{30} = \frac{1}{30}$. Se verifica el teorema.
+	}
+\end{enumerate}
+	
+\noindent \textbf{Ejercicio 3.} Usando el teorema de Green, hallar el área de:
+\begin{enumerate}[label=(\alph*)]
+	\item El disco $D$ con centro $(0,0)$ y radio $R$.
+	\cajasol{
+		Por el Teorema de Green, el área de una región $D$ puede calcularse mediante la integral de línea sobre su borde $\partial D$ utilizando la fórmula $A = \frac{1}{2} \oint_{\partial D} x \, dy - y \, dx$.
+		
+		Parametrizamos la frontera del disco con $\sigma(t) = (R\cos t, R\operatorname{sen} t)$, $t \in [0, 2\pi]$. 
+		Diferenciando obtenemos $dx = -R\operatorname{sen} t \, dt$ y $dy = R\cos t \, dt$.
+		\begin{align*} 
+			A &= \frac{1}{2} \int_0^{2\pi} \left[ (R\cos t)(R\cos t) - (R\operatorname{sen} t)(-R\operatorname{sen} t) \right] dt \\
+			&= \frac{1}{2} \int_0^{2\pi} R^2(\cos^2 t + \operatorname{sen}^2 t) \, dt \\
+			&= \frac{1}{2} \int_0^{2\pi} R^2 \, dt = \frac{R^2}{2} (2\pi) = \pi R^2 
+		\end{align*}
+	}
+	
+	\item La región dentro de la elipse $\frac{x^{2}}{a^{2}}+\frac{y^{2}}{b^{2}}=1$.
+	\cajasol{
+		Aplicamos la misma fórmula de área derivada de Green: $A = \frac{1}{2} \oint_{\partial D} x \, dy - y \, dx$.
+		
+		Parametrizamos la elipse con $\sigma(t) = (a\cos t, b\operatorname{sen} t)$, $t \in [0, 2\pi]$.
+		Diferenciando obtenemos $dx = -a\operatorname{sen} t \, dt$ y $dy = b\cos t \, dt$.
+		\begin{align*} 
+			A &= \frac{1}{2} \int_0^{2\pi} \left[ (a\cos t)(b\cos t) - (b\operatorname{sen} t)(-a\operatorname{sen} t) \right] dt \\
+			&= \frac{1}{2} \int_0^{2\pi} ab(\cos^2 t + \operatorname{sen}^2 t) \, dt \\
+			&= \frac{1}{2} \int_0^{2\pi} ab \, dt = \frac{ab}{2} (2\pi) = \pi ab 
+		\end{align*}
+	}
+\end{enumerate}
+	
+\noindent \textbf{Ejercicio 4.} Sea $D$ la región encerrada por el eje $x$ y el arco de cicloide:
+\[ x=\theta-\operatorname{sen}\theta, \quad y=1-\cos\theta, \quad 0\le\theta\le2\pi \]
+Usando el teorema de Green, calcular el área de $D$.
+\cajasol{
+	Podemos calcular el área de la región usando una de las fórmulas derivadas del Teorema de Green: $A = -\oint_{\partial D} y \, dx$.
+	
+	La frontera $\partial D$ está compuesta por dos tramos, que deben recorrerse en sentido antihorario:
+	\begin{itemize}
+		\item $\mathcal{C}_1$: Segmento sobre el eje $x$ desde $(0,0)$ hasta $(2\pi,0)$. Como aquí $y=0$, la integral es $\int_{\mathcal{C}_1} y \, dx = 0$.
+		\item $\mathcal{C}_2$: Curva recorrida desde $\theta=2\pi$ hasta $\theta=0$.
+	\end{itemize}
+	El área total será $A = - \int_{\mathcal{C}_2} y \, dx$. Al invertir el sentido de recorrido de la curva para integrar con los límites naturales de $0$ a $2\pi$, los signos se compensan y nos queda $A = \int_0^{2\pi} y \, dx$.
+	
+	Calculamos el diferencial: $x = \theta - \operatorname{sen}\theta \implies dx = (1 - \cos\theta) \, d\theta$.
+	\begin{align*} 
+		A &= \int_0^{2\pi} (1-\cos\theta)(1-\cos\theta) \, d\theta = \int_0^{2\pi} (1 - 2\cos\theta + \cos^2\theta) \, d\theta \\
+		&= \int_0^{2\pi} \left( 1 - 2\cos\theta + \frac{1+\cos(2\theta)}{2} \right) d\theta = \int_0^{2\pi} \left( \frac{3}{2} - 2\cos\theta + \frac{\cos(2\theta)}{2} \right) d\theta \\
+		&= \left[ \frac{3}{2}\theta - 2\operatorname{sen}\theta + \frac{\operatorname{sen}(2\theta)}{4} \right]_0^{2\pi} = \frac{3}{2}(2\pi) = 3\pi
+	\end{align*}
+	El área de la región es $3\pi$.
+}
+	
+\noindent \textbf{Ejercicio 5.} Hallar el área entre las curvas dadas en polares por:
+\[ r=1+\cos\theta \quad \text{con } -\pi\le\theta\le\pi, \]
+\[ r=\sqrt{\cos^{2}\theta-\operatorname{sen}^{2}\theta} \quad \text{con } -\frac{\pi}{4}\le\theta\le\frac{\pi}{4}. \]
+\cajasol{
+	Utilizaremos la fórmula de cálculo de áreas en coordenadas polares, la cual es una consecuencia directa del Teorema de Green: $A = \frac{1}{2} \int_{\theta_1}^{\theta_2} r^2 \, d\theta$.
+	
+	\textbf{Área encerrada por el cardioide ($r=1+\cos\theta$):}
+	\begin{align*} 
+		A_1 &= \frac{1}{2} \int_{-\pi}^{\pi} (1+\cos\theta)^2 \, d\theta = \frac{1}{2} \int_{-\pi}^{\pi} (1 + 2\cos\theta + \cos^2\theta) \, d\theta \\
+		&= \frac{1}{2} \int_{-\pi}^{\pi} \left( 1 + 2\cos\theta + \frac{1+\cos(2\theta)}{2} \right) d\theta = \frac{1}{2} \left[ \frac{3}{2}\theta + 2\operatorname{sen}\theta + \frac{\operatorname{sen}(2\theta)}{4} \right]_{-\pi}^{\pi} \\
+		&= \frac{1}{2} \left( \frac{3}{2}(\pi) - \frac{3}{2}(-\pi) \right) = \frac{3\pi}{2}
+	\end{align*}
+	
+	\textbf{Área encerrada por el lóbulo de la lemniscata ($r=\sqrt{\cos^2\theta-\operatorname{sen}^2\theta} = \sqrt{\cos(2\theta)}$):}
+	\begin{align*} 
+		A_2 &= \frac{1}{2} \int_{-\pi/4}^{\pi/4} \left(\sqrt{\cos(2\theta)}\right)^2 d\theta = \frac{1}{2} \int_{-\pi/4}^{\pi/4} \cos(2\theta) \, d\theta \\
+		&= \frac{1}{2} \left[ \frac{\operatorname{sen}(2\theta)}{2} \right]_{-\pi/4}^{\pi/4} = \frac{1}{4} \left( \operatorname{sen}\left(\frac{\pi}{2}\right) - \operatorname{sen}\left(-\frac{\pi}{2}\right) \right) = \frac{1}{4} (1 - (-1)) = \frac{1}{2}
+	\end{align*}
+}
+	
+\noindent \textbf{Ejercicio 6.} Probar la fórmula de integración por partes: Si $D\subset\mathbb{R}^{2}$ es un dominio elemental, $\partial D$ su frontera orientada en sentido antihorario y $n=(n_{1},n_{2})$ la normal exterior a $D$, entonces
+\[ \iint_{D}u \, v_{x} \, dx \, dy = -\iint_{D}u_{x} \, v \, dx \, dy + \int_{\partial D}u \, v \, n_{1} \, ds, \]
+para todo par de funciones $u, v \in C(\overline{D})\cap C^{1}(D)$.
+\cajasol{
+	Partimos del Teorema de Green clásico para un campo vectorial $(P,Q)$:
+	\[ \oint_{\partial D} P \, dx + Q \, dy = \iint_D (Q_x - P_y) \, dx \, dy \]
+	Si parametrizamos la frontera $\partial D$ por longitud de arco $s$, el vector tangente unitario es $T = \left(\frac{dx}{ds}, \frac{dy}{ds}\right)$. El vector normal exterior unitario $n = (n_1, n_2)$ (apuntando hacia afuera del dominio recorrido en sentido antihorario) está dado por $n = \left(\frac{dy}{ds}, -\frac{dx}{ds}\right)$. 
+	Observamos entonces que $n_1 = \frac{dy}{ds}$, lo que implica que $dy = n_1 \, ds$.
+	
+	Definimos ahora los componentes del campo: $P = 0$ y $Q = u \cdot v$. Reemplazamos en la fórmula de Green:
+	\[ \oint_{\partial D} 0 \, dx + (u \cdot v) \, dy = \iint_D \frac{\partial(u \cdot v)}{\partial x} \, dx \, dy \]
+	Sustituimos $dy = n_1 \, ds$ en la integral de línea y aplicamos la regla del producto para derivadas en la integral doble:
+	\[ \int_{\partial D} (u \cdot v) \, n_1 \, ds = \iint_D (u_x v + u v_x) \, dx \, dy \]
+	Por linealidad, separamos la integral doble en la suma de dos integrales:
+	\[ \int_{\partial D} u v \, n_1 \, ds = \iint_D u_x v \, dx \, dy + \iint_D u v_x \, dx \, dy \]
+	Finalmente, despejando el término $\iint_D u v_x \, dx \, dy$, obtenemos la fórmula buscada:
+	\[ \iint_D u v_x \, dx \, dy = -\iint_D u_x v \, dx \, dy + \int_{\partial D} u v \, n_1 \, ds \]
+}
+	
+	\newpage
+	
+\noindent \textbf{Ejercicio 7.} Sean $P$ y $Q$ funciones continuamente diferenciables en $\mathbb{R}^{2}$. Verificar que el Teorema de Green para estas funcionnes es válido cuando la región $D$ es el anillo
+\[ D=\{(x,y)/1\le x^{2}+y^{2}\le4\} \]
+\textit{Sugerencia: Aplicar el Teorema de Green en los discos de radios 1 y 2.}
+\cajasol{
+	Sean $D_1 = \{(x,y) \in \mathbb{R}^2 : x^2+y^2 \le 1\}$ y $D_2 = \{(x,y) \in \mathbb{R}^2 : x^2+y^2 \le 4\}$. 
+	Notemos que el anillo se puede expresar como la diferencia $D = D_2 \setminus D_1^{\circ}$.
+	
+	Llamemos $C_1$ y $C_2$ a las fronteras de $D_1$ y $D_2$ respectivamente, ambas orientadas en sentido antihorario. 
+	Aplicando el Teorema de Green en ambos discos de forma independiente, tenemos:
+	\[ \iint_{D_2} (Q_x - P_y) \, dA = \oint_{C_2} P \, dx + Q \, dy \]
+	\[ \iint_{D_1} (Q_x - P_y) \, dA = \oint_{C_1} P \, dx + Q \, dy \]
+	
+	Como $D_2 = D \cup D_1$ y la intersección entre $D$ y $D_1$ tiene área nula (es solo la curva $C_1$), la integral doble sobre $D_2$ es la suma de las integrales sobre $D$ y $D_1$:
+	\[ \iint_{D_2} (Q_x - P_y) \, dA = \iint_D (Q_x - P_y) \, dA + \iint_{D_1} (Q_x - P_y) \, dA \]
+	
+	Despejando la integral sobre $D$ y reemplazando por las integrales de línea obtenidas por Green:
+	\begin{align*}
+		\iint_D (Q_x - P_y) \, dA &= \iint_{D_2} (Q_x - P_y) \, dA - \iint_{D_1} (Q_x - P_y) \, dA \\
+		&= \oint_{C_2} P \, dx + Q \, dy - \oint_{C_1} P \, dx + Q \, dy
+	\end{align*}
+	
+	La frontera del anillo $D$, denotada como $\partial D$, está formada por la circunferencia exterior $C_2$ orientada en sentido antihorario y la circunferencia interior $C_1$ orientada en sentido horario (es decir, $-C_1$). Por lo tanto:
+	\[ \oint_{\partial D} P \, dx + Q \, dy = \oint_{C_2} P \, dx + Q \, dy + \oint_{-C_1} P \, dx + Q \, dy = \oint_{C_2} P \, dx + Q \, dy - \oint_{C_1} P \, dx + Q \, dy \]
+	
+	Igualando ambas expresiones, queda demostrado que el Teorema de Green es válido en el anillo:
+	\[ \iint_D (Q_x - P_y) \, dA = \oint_{\partial D} P \, dx + Q \, dy \]
+}
+	
+\noindent \textbf{Ejercicio 8.} Sea $\mathcal{C}$ la curva
+\begin{align*}
+	x&=0, \quad & 0&\le y\le4, \\
+	y&=4, \quad & 0&\le x\le4, \\
+	y&=x, \quad & 0&\le x\le1, \\
+	y&=2-x, \quad & 1&<x<2, \\
+	y&=x-2, \quad & 2&\le x\le3, \\
+	y&=4-x, \quad & 2&\le x\le3, \\
+	y&=x, \quad & 2&\le x\le4,
+\end{align*}
+orientada positivamente. Calcular
+\[ \int_{\mathcal{C}}\frac{y}{(x-1)^{2}+y^{2}}dx+\frac{1-x}{(x-1)^{2}+y^{2}}dy. \]
+\cajasol{
+	Sea el campo vectorial $F(x,y) = (P, Q)$ donde $P(x,y) = \frac{y}{(x-1)^2+y^2}$ y $Q(x,y) = \frac{1-x}{(x-1)^2+y^2}$.
+	Este campo tiene una singularidad en el punto $(1,0)$.
+	
+	Calculamos $Q_x$ y $P_y$:
+	\[ Q_x = \frac{-(1)((x-1)^2+y^2) - (1-x)(2(x-1))}{((x-1)^2+y^2)^2} = \frac{-(x-1)^2-y^2+2(x-1)^2}{((x-1)^2+y^2)^2} = \frac{(x-1)^2-y^2}{((x-1)^2+y^2)^2} \]
+	\[ P_y = \frac{(1)((x-1)^2+y^2) - y(2y)}{((x-1)^2+y^2)^2} = \frac{(x-1)^2-y^2}{((x-1)^2+y^2)^2} \]
+	Observamos que $Q_x = P_y$, por lo que $Q_x - P_y = 0$ en todo su dominio.
+	
+	Analizamos si la singularidad $(1,0)$ pertenece a la región $D$ encerrada por $\mathcal{C}$. 
+	La frontera inferior de la región está dada por los segmentos $y=x$ (para $0 \le x \le 1$) e $y=2-x$ (para $1 < x < 2$). En $x=1$, la frontera de la región toma el valor $y=1$. 
+	Como $D$ está delimitada inferiormente por estas curvas (y superiormente por $y=4$), el punto $(1,0)$ se encuentra estrictamente \textbf{fuera} de la región $D$.
+	
+	Dado que $F$ es de clase $C^1$ en un conjunto abierto simplemente conexo que contiene a $D$, podemos aplicar el Teorema de Green con normalidad:
+	\[ \int_{\mathcal{C}} P \, dx + Q \, dy = \iint_D (Q_x - P_y) \, dA = \iint_D 0 \, dA = 0 \]
+	El valor de la integral es $0$.
+}
+	
+\noindent \textbf{Ejercicio 9.} Sea $D=\{(x,y)/1\le x^{2}+y^{2}\le4,x\ge0\}$. Calcular
+\[ \int_{\partial D}x^{2}y \, dx-xy^{2}dy. \]
+Como siempre, $\partial D$ está recorrido en sentido directo (el contrario a las agujas del reloj).
+\cajasol{
+	Sean $P(x,y) = x^2y$ y $Q(x,y) = -xy^2$. Calculamos las derivadas parciales para aplicar el Teorema de Green:
+	\[ Q_x = -y^2, \quad P_y = x^2 \implies Q_x - P_y = -y^2 - x^2 = -(x^2+y^2) \]
+	
+	La integral de línea se transforma en una integral doble sobre el semianillo derecho $D$:
+	\[ \int_{\partial D} x^2y \, dx - xy^2 \, dy = \iint_D -(x^2+y^2) \, dA \]
+	
+	Pasamos a coordenadas polares. La región $D$ está descrita por:
+	\[ 1 \le r \le 2, \quad -\frac{\pi}{2} \le \theta \le \frac{\pi}{2} \]
+	El diferencial de área es $dA = r \, dr \, d\theta$, y el integrando se convierte en $-r^2$. Reemplazando:
+	\begin{align*}
+		\iint_D -(x^2+y^2) \, dA &= \int_{-\pi/2}^{\pi/2} \int_1^2 (-r^2) \, r \, dr \, d\theta = \int_{-\pi/2}^{\pi/2} d\theta \int_1^2 -r^3 \, dr \\
+		&= \left( \frac{\pi}{2} - \left(-\frac{\pi}{2}\right) \right) \left[ -\frac{r^4}{4} \right]_1^2 \\
+		&= \pi \left( -\frac{16}{4} - \left(-\frac{1}{4}\right) \right) = \pi \left( -4 + \frac{1}{4} \right) = -\frac{15\pi}{4}
+	\end{align*}
+	
+	El resultado de la integral es $-\frac{15\pi}{4}$.
+}
+	
+\noindent \textbf{Ejercicio 10.} Calcular el trabajo efectuado por el campo de fuerzas $F(x,y)=(y+3x,2y-x)$ al mover una partícula rodeando una vez la elipse $4x^{2}+y^{2}=4$ en el sentido de las agujas del reloj.
+\cajasol{
+	El trabajo viene dado por la integral de línea $W = \oint_{\mathcal{C}} F \cdot ds = \oint_{\mathcal{C}} (y+3x) \, dx + (2y-x) \, dy$.
+	
+	Identificamos $P(x,y) = y+3x$ y $Q(x,y) = 2y-x$. Calculamos las derivadas parciales:
+	\[ Q_x = -1, \quad P_y = 1 \implies Q_x - P_y = -2 \]
+	
+	La elipse está dada por $4x^2+y^2=4 \implies x^2 + \frac{y^2}{4} = 1$, que encierra una región $D$ con semiejes $a=1$ y $b=2$. Su área es $\text{Área}(D) = \pi a b = 2\pi$.
+	
+	Como la curva $\mathcal{C}$ se recorre en sentido horario (negativo), al aplicar el Teorema de Green debemos agregar un signo menos para compensar la orientación:
+	\[ W = -\iint_D (Q_x - P_y) \, dA = -\iint_D (-2) \, dA = 2 \iint_D 1 \, dA = 2 \, \text{Área}(D) \]
+	
+	Reemplazando el valor del área:
+	\[ W = 2(2\pi) = 4\pi \]
+}
+	
+	\newpage
+	
+\noindent \textbf{Ejercicio 11.} Sea $F(x,y)=(P(x,y),Q(x,y))= \left(\frac{y}{x^{2}+y^{2}},\frac{-x}{x^{2}+y^{2}}\right)$. Calcular $\int_{\mathcal{C}}F$ donde $\mathcal{C}$ es la circunferencia unitaria centrada en el origen orientada positivamente. Calcular $Q_{x}-P_{y}$. ¿Se satisface en este caso el Teorema de Green?
+\cajasol{
+	Calculamos primero las derivadas parciales:
+	\[ Q_x = \frac{\partial}{\partial x}\left(\frac{-x}{x^2+y^2}\right) = \frac{-1(x^2+y^2) - (-x)(2x)}{(x^2+y^2)^2} = \frac{x^2-y^2}{(x^2+y^2)^2} \]
+	\[ P_y = \frac{\partial}{\partial y}\left(\frac{y}{x^2+y^2}\right) = \frac{1(x^2+y^2) - y(2y)}{(x^2+y^2)^2} = \frac{x^2-y^2}{(x^2+y^2)^2} \]
+	Vemos que $Q_x - P_y = 0$ en todo el dominio de $F$ (que es $\mathbb{R}^2 \setminus \{(0,0)\}$).
+	
+	Calculamos la integral de línea sobre la circunferencia unitaria $\mathcal{C}$ parametrizada por $\sigma(t) = (\cos t, \operatorname{sen} t)$ con $t \in [0, 2\pi]$.
+	Tenemos $dx = -\operatorname{sen} t \, dt$ y $dy = \cos t \, dt$. Evaluamos $P$ y $Q$ notando que $x^2+y^2=1$:
+	\[ \oint_{\mathcal{C}} P \, dx + Q \, dy = \int_0^{2\pi} \left[ \frac{\operatorname{sen} t}{1} (-\operatorname{sen} t) + \frac{-\cos t}{1} (\cos t) \right] dt = \int_0^{2\pi} (-\operatorname{sen}^2 t - \cos^2 t) \, dt = \int_0^{2\pi} -1 \, dt = -2\pi \]
+	
+	Si se aplicara el teorema sobre el disco $D$ encerrado por $\mathcal{C}$, la integral doble daría $\iint_D (Q_x - P_y) \, dA = 0$, que es distinto a $-2\pi$. 
+	El teorema \textbf{no se satisface} porque las funciones $P$ y $Q$ no están definidas en el origen $(0,0)$, el cual pertenece al interior de la región $D$. Al no ser el campo continuo y diferenciable en toda la región encerrada, no se cumplen las hipótesis del Teorema de Green.
+}
+	
+\noindent \textbf{Ejercicio 12.} Sea $\mathcal{C}$ una curva cerrada, simple y suave orientada positivamente que encierra la circunferencia unitaria centrada en el origen. Calcular $\int_{\mathcal{C}}F\cdot ds$ para el campo $F$ definido en el ejercicio 11.
+\cajasol{
+	Sea $\mathcal{C}_1$ la circunferencia unitaria orientada positivamente (la calculada en el ejercicio 11[cite: 1]).
+	Como $\mathcal{C}$ encierra a $\mathcal{C}_1$, podemos considerar la región $D$ que queda delimitada entre ambas curvas.
+	
+	La frontera de esta región, denotada como $\partial D$, está compuesta por $\mathcal{C}$ orientada positivamente (frontera exterior) y $\mathcal{C}_1$ orientada negativamente (frontera interior, para dejar a $D$ a la izquierda). Es decir, $\partial D = \mathcal{C} \cup (-\mathcal{C}_1)$.
+	
+	El origen $(0,0)$ queda excluido de la región $D$ (está en el hueco). Por lo tanto, el campo $F$ es de clase $C^1$ en todo el dominio $D$. 
+	Aplicamos el Teorema de Green en el anillo $D$:
+	\[ \iint_D (Q_x - P_y) \, dA = \oint_{\partial D} F \cdot ds = \oint_{\mathcal{C}} F \cdot ds + \oint_{-\mathcal{C}_1} F \cdot ds = \oint_{\mathcal{C}} F \cdot ds - \oint_{\mathcal{C}_1} F \cdot ds \]
+	
+	Sabemos por el ejercicio 11 que en todo el dominio $Q_x - P_y = 0$ y que $\oint_{\mathcal{C}_1} F \cdot ds = -2\pi$. Reemplazando:
+	\[ 0 = \oint_{\mathcal{C}} F \cdot ds - (-2\pi) \implies 0 = \oint_{\mathcal{C}} F \cdot ds + 2\pi \]
+	
+	Despejando, obtenemos:
+	\[ \oint_{\mathcal{C}} F \cdot ds = -2\pi \]
+}
+	
+\noindent \textbf{Ejercicio 13.} Calcular $\int_{\mathcal{C}}f_{1}dx+f_{2}dy$ siendo
+\[f_{1}(x,y)=\frac{x \operatorname{sen}\left(\frac{\pi}{2(x^{2}+y^{2})}\right)-y(x^{2}+y^{2})}{(x^{2}+y^{2})^{2}}\]
+\[f_{2}(x,y)=\frac{y \operatorname{sen}\left(\frac{\pi}{2(x^{2}+y^{2})}\right)+x(x^{2}+y^{2})}{(x^{2}+y^{2})^{2}}\]
+y
+\[\mathcal{C}=\begin{cases}y=x+1 & \text{si } -1\le x\le0,\\ y=1-x & \text{si } 0\le x\le1,\end{cases}\]
+recorrida del $(-1,0)$ al $(1,0)$.
+\cajasol{
+	Notemos que el campo $F = (f_1, f_2)$ se puede descomponer en la suma de dos campos: $F = F_A + F_B$, donde
+	\[F_A(x,y) = \left( \frac{x \operatorname{sen}\left(\frac{\pi}{2(x^2+y^2)}\right)}{(x^2+y^2)^2}, \frac{y \operatorname{sen}\left(\frac{\pi}{2(x^2+y^2)}\right)}{(x^2+y^2)^2} \right)\]
+	\[F_B(x,y) = \left( \frac{-y}{x^2+y^2}, \frac{x}{x^2+y^2} \right)\]
+	
+	El campo $F_A$ es un campo de gradientes. Si definimos el potencial $\phi(x,y) = \frac{1}{\pi}\cos\left(\frac{\pi}{2(x^2+y^2)}\right)$, podemos verificar que $\nabla\phi = F_A$. 
+	Por lo tanto, su integral de línea solo depende de los extremos:
+	\[\int_{\mathcal{C}} F_A \cdot ds = \phi(1,0) - \phi(-1,0) = \frac{1}{\pi}\cos\left(\frac{\pi}{2}\right) - \frac{1}{\pi}\cos\left(\frac{\pi}{2}\right) = 0 - 0 = 0\]
+	
+	El campo $F_B$ es irrotacional ($(Q_B)_x - (P_B)_y = 0$) en su dominio $\mathbb{R}^2 \setminus \{(0,0)\}$. Dado que la curva $\mathcal{C}$ va de $(-1,0)$ a $(1,0)$ contenida completamente en el semiplano superior (donde no hay singularidades), podemos usar el principio de independencia del camino[cite: 1, 3]. Deformamos $\mathcal{C}$ hacia una semicircunferencia unitaria $\mathcal{C}'$ parametrizada por $\sigma(t) = (\cos t, \operatorname{sen} t)$ con $t$ variando desde $\pi$ hasta $0$.
+	
+	Para $F_B$ sobre $\mathcal{C}'$, sabemos que es el diferencial de ángulo $d\theta$:
+	\[\int_{\mathcal{C}'} \frac{-y}{x^2+y^2} \, dx + \frac{x}{x^2+y^2} \, dy = \int_\pi^0 1 \, dt = 0 - \pi = -\pi\]
+	
+	Sumando ambos resultados, la integral total es $0 - \pi = -\pi$.
+}
+	
+\noindent \textbf{Ejercicio 14.} Determinar todas las circunferencias $\mathcal{C}$ en el plano $\mathbb{R}^{2}$ sobre las cuales vale la siguiente igualdad
+\[ \int_{\mathcal{C}}-y^{2}dx+3x \, dy=6\pi. \]
+\cajasol{
+	Sea $P(x,y) = -y^2$ y $Q(x,y) = 3x$. Calculamos las derivadas parciales para usar el Teorema de Green sobre el disco $D$ encerrado por la circunferencia $\mathcal{C}$:
+	\[ Q_x = 3, \quad P_y = -2y \implies Q_x - P_y = 3 - (-2y) = 3 + 2y \]
+	
+	Aplicando el Teorema de Green:
+	\[ \oint_{\mathcal{C}} -y^2 \, dx + 3x \, dy = \iint_D (3+2y) \, dA = 3 \iint_D 1 \, dA + 2 \iint_D y \, dA \]
+	
+	Si la circunferencia $\mathcal{C}$ tiene centro $(x_0, y_0)$ y radio $R$, el área del disco $D$ es $\pi R^2$. 
+	La integral de $y$ sobre el disco se puede relacionar con la coordenada $y$ del centro de masa $\bar{y} = y_0$, sabiendo que $\bar{y} = \frac{1}{\text{Área}(D)} \iint_D y \, dA$. Por lo tanto, $\iint_D y \, dA = y_0 \pi R^2$.
+	
+	Reemplazando estos valores en la expresión de la integral:
+	\[ 3(\pi R^2) + 2(y_0 \pi R^2) = \pi R^2 (3 + 2y_0) \]
+	
+	Se nos pide que esta integral valga $6\pi$. Igualamos:
+	\[ \pi R^2 (3 + 2y_0) = 6\pi \implies R^2 (3 + 2y_0) = 6 \]
+	
+	Como $R^2 > 0$, necesitamos obligatoriamente que $3 + 2y_0 > 0 \implies y_0 > -\frac{3}{2}$.
+	Las circunferencias que cumplen la condición son todas aquellas con centro en cualquier $(x_0, y_0)$ con $y_0 > -\frac{3}{2}$ y cuyo radio sea $R = \sqrt{\frac{6}{3+2y_0}}$.
+}
+	
+	\newpage
+	
+\noindent \textbf{Ejercicio 15.} Calcular la integral $\int_{\mathcal{C}}F\cdot ds$ donde
+\[ F(x,y)=(y^{2}e^{x}+\cos x+(x-y)^{2},2 \, y \, e^{x}+\operatorname{sen} y) \]
+y $\mathcal{C}$ es la curva
+\[ x^{2}+y^{2}=1, \quad y\ge0, \]
+orientada de manera tal que comience en $(1,0)$ y termine en $(-1,0)$.
+\cajasol{
+	Identificamos $P(x,y) = y^2 e^x + \cos x + (x-y)^2$ y $Q(x,y) = 2y e^x + \operatorname{sen} y$. 
+	Calculamos el rotor escalar:
+	\[ Q_x = 2ye^x, \quad P_y = 2ye^x - 2(x-y) \implies Q_x - P_y = 2(x-y) \]
+	
+	La curva $\mathcal{C}$ es la semicircunferencia superior de radio 1, orientada en sentido antihorario desde $(1,0)$ hasta $(-1,0)$. Para poder aplicar el Teorema de Green[cite: 1, 3], cerramos la región utilizando el segmento $\mathcal{C}_1$ sobre el eje $x$ desde $(-1,0)$ hasta $(1,0)$. La curva frontera $\partial D = \mathcal{C} \cup \mathcal{C}_1$ encierra el semidisco superior $D$.
+	
+	Aplicando Green a la región $D$:
+	\[ \int_{\mathcal{C}} F \cdot ds + \int_{\mathcal{C}_1} F \cdot ds = \iint_D 2(x-y) \, dA \]
+	
+	Calculamos la integral doble:
+	\[ \iint_D 2(x-y) \, dA = 2 \iint_D x \, dA - 2 \iint_D y \, dA \]
+	Por simetría impar de la región respecto al eje $y$, $\iint_D x \, dA = 0$. 
+	Calculamos $\iint_D y \, dA$ en polares ($r \in [0,1], \theta \in [0,\pi]$):
+	\[ \int_0^\pi \int_0^1 (r\operatorname{sen}\theta) r \, dr \, d\theta = \left[ -\cos\theta \right]_0^\pi \left[ \frac{r^3}{3} \right]_0^1 = (1 - (-1)) \frac{1}{3} = \frac{2}{3} \]
+	Por lo tanto, $\iint_D 2(x-y) \, dA = -2 \left(\frac{2}{3}\right) = -\frac{4}{3}$.
+	
+	Ahora calculamos la integral de línea sobre el segmento $\mathcal{C}_1$, donde $y=0$, $dy=0$, y $x$ varía de $-1$ a $1$:
+	\[ \int_{\mathcal{C}_1} F \cdot ds = \int_{-1}^1 P(x,0) \, dx = \int_{-1}^1 (\cos x + x^2) \, dx = \left[ \operatorname{sen} x + \frac{x^3}{3} \right]_{-1}^1 = 2\operatorname{sen}(1) + \frac{2}{3} \]
+	
+	Finalmente, despejamos la integral buscada sobre $\mathcal{C}$:
+	\[ \int_{\mathcal{C}} F \cdot ds = -\frac{4}{3} - \left( 2\operatorname{sen}(1) + \frac{2}{3} \right) = -2 - 2\operatorname{sen}(1) \]
+}
+	
+\noindent \textbf{Ejercicio 16.} Sean $u, v\in C^{1}(D)$, donde $D=\{(x,y)\in\mathbb{R}^{2}:\frac{x^{2}}{9}+\frac{y^{2}}{4}\le1\}$. Consideremos los campos definidos por $F(x,y)=(u(x,y),v(x,y))$, $G(x,y)=(v_{x}-v_{y},u_{x}-u_{y})$. Calcular
+\[ \iint_{D}(F\cdot G)(x,y)dx \, dy \]
+sabiendo que sobre el borde de $D$ se tiene $u(x,y)=x$, $v(x,y)=1$.
+\cajasol{
+	Primero desarrollamos el producto escalar $F \cdot G$:
+	\[ F \cdot G = (u, v) \cdot (v_x - v_y, u_x - u_y) = u(v_x - v_y) + v(u_x - u_y) = u v_x - u v_y + v u_x - v u_y \]
+	
+	Agrupando convenientemente los términos, podemos identificar las derivadas parciales del producto de funciones $(uv)$:
+	\[ u v_x + v u_x = \frac{\partial}{\partial x}(uv) \quad \text{y} \quad - u v_y - v u_y = -\frac{\partial}{\partial y}(uv) \]
+	
+	Por lo tanto, la integral doble se puede reescribir como:
+	\[ \iint_D (F \cdot G) \, dx \, dy = \iint_D \left( \frac{\partial}{\partial x}(uv) - \frac{\partial}{\partial y}(uv) \right) dx \, dy \]
+	
+	Esta expresión tiene exactamente la forma del lado derecho del Teorema de Green, $\iint_D (Q_x - P_y) \, dA$, si definimos los componentes del campo vectorial como $P(x,y) = uv$ y $Q(x,y) = uv$. 
+	Aplicando el Teorema de Green, transformamos la integral doble en una integral de línea sobre la frontera $\partial D$ orientada positivamente:
+	\[ \iint_D \left( (uv)_x - (uv)_y \right) dx \, dy = \oint_{\partial D} (uv) \, dx + (uv) \, dy \]
+	
+	El enunciado nos proporciona las condiciones de contorno: sobre el borde $\partial D$ se cumple que $u(x,y) = x$ y $v(x,y) = 1$. En consecuencia, sobre la curva tenemos que $uv = x \cdot 1 = x$. Reemplazamos esto en la integral de línea:
+	\[ \oint_{\partial D} x \, dx + x \, dy \]
+	
+	Podemos resolver esta integral de línea volviendo a aplicar el Teorema de Green, esta vez con $P(x,y) = x$ y $Q(x,y) = x$:
+	\[ \oint_{\partial D} x \, dx + x \, dy = \iint_D (Q_x - P_y) \, dx \, dy = \iint_D (1 - 0) \, dx \, dy = \iint_D 1 \, dA \]
+	
+	La integral de $1$ sobre el dominio $D$ equivale al área de la región. La región $D$ está encerrada por la elipse $\frac{x^2}{9} + \frac{y^2}{4} = 1$, que tiene semiejes $a=3$ y $b=2$.
+	Calculamos su área:
+	\[ \text{Área}(D) = \pi a b = \pi (3)(2) = 6\pi \]
+	
+	El valor de la integral solicitada es $6\pi$.
+}
+	
+\end{document}
